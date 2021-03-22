@@ -1,9 +1,8 @@
-package logic;
+package logic.models;
 
 public class Prize {
 	
 	private int x;
-	public static final int valuePrize = 5;
 	private int y;
 
 	public Prize(int x, int y) {
@@ -26,7 +25,4 @@ public class Prize {
 	public void setY(int y) {
 		this.y = y;
 	}
-	
-	
-	
 }

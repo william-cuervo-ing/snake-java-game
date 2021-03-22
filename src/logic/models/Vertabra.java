@@ -1,4 +1,4 @@
-package logic;
+package logic.models;
 
 public class Vertabra {
 	
@@ -6,7 +6,6 @@ public class Vertabra {
 	private int y;
 	private int width;
 	private int height;
-	public static final int SIZE = 30;
 	
 	public Vertabra(int x, int y, int height, int width) {
 		this.x = x;
@@ -46,7 +45,4 @@ public class Vertabra {
 	public void setHeight(int height) {
 		this.height = height;
 	}
-	
-	
-	
 }
