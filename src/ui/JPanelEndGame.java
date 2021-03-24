@@ -1,7 +1,7 @@
 package ui;
 
-import logic.controller.Controller;
-import logic.controller.GameMode;
+import logic.controllers.GameController;
+import logic.controllers.GameMode;
 
 import java.awt.Color;
 import java.awt.Font;
@@ -52,9 +52,9 @@ public class JPanelEndGame extends JPanel {
     }
 
     public void setScorePlayer1(int score) {
-        String prefix = Controller.gameMode == GameMode.ONE_PLAYER ? "Score: " : "Score Player 1: ";
+        String prefix = GameController.gameMode == GameMode.ONE_PLAYER ? "Score: " : "Score Player 1: ";
         labelScorePlayer1.setText(prefix + score);
-        labelScorePlayer2.setVisible(Controller.gameMode == GameMode.ONE_PLAYER);
+        labelScorePlayer2.setVisible(GameController.gameMode == GameMode.ONE_PLAYER);
     }
 
     public void setScorePlayer2(int scorePlayer1, int scorePlayer2) {

@@ -1,4 +1,4 @@
-package logic.controller;
+package logic.controllers;
 
 import logic.DirectionSnakeEnum;
 import logic.models.Snake;

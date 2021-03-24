@@ -1,4 +1,4 @@
-package logic.controller;
+package logic.controllers;
 
 public enum GameMode {
     ONE_PLAYER,

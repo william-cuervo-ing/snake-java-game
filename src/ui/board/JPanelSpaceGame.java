@@ -1,9 +1,9 @@
 package ui.board;
 
 import logic.GameConstants;
-import logic.controller.Controller;
-import logic.controller.GameEventListener;
-import logic.controller.GameMode;
+import logic.controllers.GameController;
+import logic.controllers.GameEventListener;
+import logic.controllers.GameMode;
 import logic.models.Prize;
 import logic.models.Snake;
 import logic.models.Vertabra;
@@ -22,6 +22,7 @@ public class JPanelSpaceGame extends JPanel implements Runnable {
     private Prize prize;
 
     public JPanelSpaceGame(GameEventListener gameEventListener) {
+        setName(this.getClass().getName());
         this.gameEventListener = gameEventListener;
         init();
     }
@@ -37,7 +38,7 @@ public class JPanelSpaceGame extends JPanel implements Runnable {
     public void paint(Graphics g) {
         super.paint(g);
         paintSnake(g, snakeOne, UIConstants.BACKGROUND_COLOR_SNAKE_ONE);
-        if (Controller.gameMode == GameMode.TWO_PLAYERS)
+        if (GameController.gameMode == GameMode.TWO_PLAYERS)
             paintSnake(g, snakeTwo, UIConstants.BACKGROUND_COLOR_SNAKE_TWO);
         paintPrize(g);
         evaluateIfScored();
@@ -57,6 +58,7 @@ public class JPanelSpaceGame extends JPanel implements Runnable {
         while (running) {
             this.repaint();
             synchronized (this) {
+                System.out.println("paused" + paused);
                 if (paused) {
                     try {
                         wait();
@@ -66,7 +68,7 @@ public class JPanelSpaceGame extends JPanel implements Runnable {
                 }
             }
             try {
-                Thread.sleep(1);
+                Thread.sleep(100);
             } catch (Exception e) {
                 System.out.println("ERROR");
                 e.printStackTrace();
@@ -98,7 +100,7 @@ public class JPanelSpaceGame extends JPanel implements Runnable {
         if ((snakeOne.getBody().get(0).getX() == prize.getX()) && (snakeOne.getBody().get(0).getY() == prize.getY())) {
             gameEventListener.addScorePlayerOne();
         }
-        if (Controller.gameMode == GameMode.TWO_PLAYERS) {
+        if (GameController.gameMode == GameMode.TWO_PLAYERS) {
             if ((snakeTwo.getBody().get(0).getX() == prize.getX()) && (snakeTwo.getBody().get(0).getY() == prize.getY())) {
                 gameEventListener.addScorePlayerTwo();
             }

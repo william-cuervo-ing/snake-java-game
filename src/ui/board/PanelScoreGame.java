@@ -1,16 +1,11 @@
 package ui.board;
 
-import logic.controller.Controller;
+import logic.controllers.GameController;
 import ui.UIConstants;
-import ui.GameWindow;
 
-import java.awt.Color;
-import java.awt.Font;
-
-import javax.swing.BorderFactory;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
+import javax.swing.*;
 import javax.swing.border.Border;
+import java.awt.*;
 
 /**
  * Panel with Game Score in Game Panel
@@ -21,9 +16,9 @@ public class PanelScoreGame extends JPanel {
     private JLabel labelScorePlayer1;
     private JLabel labelScorePlayer2;
 
-    public PanelScoreGame(GameWindow window) {
+    public PanelScoreGame() {
         this.setLayout(null);
-        this.setBounds(-1, -1, window.getWidth() + 1, UIConstants.SCORE_BOARD_HEIGHT);
+        this.setBounds(-1, -1, UIConstants.WINDOW_WIDTH, UIConstants.SCORE_BOARD_HEIGHT);
         this.setBackground(UIConstants.BACKGROUND_SCORE_COLOR);
         Border border = BorderFactory.createLineBorder(UIConstants.BACKGROUND_SCORE_COLOR.darker(), 1);
         this.setBorder(border);
@@ -31,7 +26,7 @@ public class PanelScoreGame extends JPanel {
     }
 
     public void initialize() {
-        switch (Controller.gameMode) {
+        switch (GameController.gameMode) {
             case ONE_PLAYER:
                 this.initializeOnePlayerMode();
                 break;

@@ -6,7 +6,7 @@ import java.util.Random;
 
 import logic.DirectionSnakeEnum;
 import logic.GameConstants;
-import logic.controller.GameEventListener;
+import logic.controllers.GameEventListener;
 import ui.UIConstants;
 
 public class Snake extends Thread {
@@ -23,7 +23,7 @@ public class Snake extends Thread {
     private DirectionSnakeEnum lastDirection;
     private int vertabrasToGrow = GameConstants.VERTABRAS_TO_GROW;
 
-    public Snake(GameEventListener listener){
+    public Snake(GameEventListener listener) {
         this.listener = listener;
         this.body = new LinkedList<>();
         this.alive = true;
@@ -35,8 +35,9 @@ public class Snake extends Thread {
         int y = random.nextInt(GameConstants.SCALAR_POSITION_GAME);
         direction = DirectionSnakeEnum.RIGHT;
         lastDirection = DirectionSnakeEnum.RIGHT;
-        for (int i = 0; i < body.size(); i++) {
-            body.add(new Vertabra((short)x, (short)y, GameConstants.VERTABRA_SIZE, GameConstants.VERTABRA_SIZE));
+        for (int i = 0; i < GameConstants.INITIAL_SNAKE_VERTABRAS_SIZE; i++) {
+            System.out.println("x " + x);
+            body.add(new Vertabra(x, y, GameConstants.VERTABRA_SIZE, GameConstants.VERTABRA_SIZE));
             x = x - GameConstants.VERTABRA_SIZE;
         }
     }
@@ -64,31 +65,31 @@ public class Snake extends Thread {
     public void move() {
         moveHead();
         moveBody();
-        evaluateIfShouldDie();
+//        evaluateIfShouldDie();
     }
 
-    private void moveHead(){
+    private void moveHead() {
         switch (direction) {
             case LEFT:
-                if (lastDirection.equals(DirectionSnakeEnum.RIGHT))
+                if (!lastDirection.equals(DirectionSnakeEnum.RIGHT))
                     moveLeft();
                 else
                     moveRight();
                 break;
             case RIGHT:
-                if (lastDirection.equals(DirectionSnakeEnum.LEFT))
+                if (!lastDirection.equals(DirectionSnakeEnum.LEFT))
                     moveRight();
                 else
                     moveLeft();
                 break;
             case UP:
-                if (lastDirection.equals(DirectionSnakeEnum.DOWN))
+                if (!lastDirection.equals(DirectionSnakeEnum.DOWN))
                     moveUp();
                 else
                     moveDown();
                 break;
             case DOWN:
-                if (lastDirection.equals(DirectionSnakeEnum.UP))
+                if (!lastDirection.equals(DirectionSnakeEnum.UP))
                     moveDown();
                 else
                     moveUp();
@@ -96,25 +97,18 @@ public class Snake extends Thread {
         }
     }
 
-    private void moveBody(){
-        int x = body.get(0).getX();
-        int y =  body.get(0).getY();
-        int xAux = 0;
-        int yAux = 0;
-
+    private void moveBody() {
+        int x = 0;
+        int y = 0;
         int vertabrasToMove = growing ? (body.size() - vertabrasToGrow) : body.size();
 
-        for (int i = 0; i < vertabrasToMove; i++) {
-            if (body.size() != (i + 1)) {
-                xAux =  body.get(i + 1).getX();
-                yAux = body.get(i + 1).getY();
-                body.get(i + 1).setX(x);
-                body.get(i + 1).setY(y);
-            }
-            x = xAux;
-            y = yAux;
+        for (int i = 1; i < vertabrasToMove; i++) {
+            x = body.get(i - 1).getX();
+            y = body.get(i - 1).getY();
+            body.get(i).setX(x);
+            body.get(i).setY(y);
         }
-        if(growing){
+        if (growing) {
             vertabrasToGrow--;
             if (vertabrasToGrow == 0) {
                 growing = false;
@@ -123,8 +117,12 @@ public class Snake extends Thread {
         }
     }
 
-    private void evaluateIfShouldDie(){
+    private void evaluateIfShouldDie() {
+        System.out.println("body.get(0).getX() + " + body.get(0).getX());
+        System.out.println("body.get(0).getY() + " + body.get(0).getY());
         for (int i = 1; i < body.size(); i++) {
+            System.out.println("body.get(i).getX() + " + body.get(i).getX());
+            System.out.println("body.get(i).getY() + " + body.get(i).getY());
             if ((body.get(0).getX() == body.get(i).getX()) && (body.get(0).getY() == body.get(i).getY())) {
                 listener.dieSnake(this);
                 return;

@@ -9,6 +9,7 @@ public class JPanelMainMenu extends JPanel {
     private final ActionListener listener;
 
     public JPanelMainMenu(ActionListener listener) {
+        setName(this.getClass().getName());
         this.listener = listener;
         setLayout(null);
         setBounds(UIConstants.FULL_SCREEN_RECTANGLE);
@@ -27,14 +28,14 @@ public class JPanelMainMenu extends JPanel {
         controlsText += "Move down:   DOWN\n";
         controlsText += "Move left:   LEFT\n";
         controlsText += "Move right:   RIGHT";
-        addControlInstruction(controlsText, new Rectangle(80, 20, 150, 150));
+        addControlInstruction(controlsText, new Rectangle(80, 20, 150, 80));
 
         addLabel("Player 2: ", new Rectangle(240, 20, 100, 20));
         controlsText = "Move up:   W\n";
         controlsText += "Move Down:   A\n";
         controlsText += "Move Left:   S\n";
         controlsText += "Move Right:   D";
-        addControlInstruction(controlsText, new Rectangle(300, 20, 150, 150));
+        addControlInstruction(controlsText, new Rectangle(300, 20, 150, 80));
 
         addLabel("Pause:    Esc", new Rectangle(20, 100, 100, 20));
         addLabel("Developed by William Cuervo", new Rectangle(UIConstants.WINDOW_HEIGHT - 60, 470, 140, 20));
@@ -49,7 +50,7 @@ public class JPanelMainMenu extends JPanel {
     private void addControlInstruction(String text, Rectangle bounds) {
         JTextArea label = new JTextArea();
         label.setText(text);
-        label.setBackground(Color.white.darker());
+        label.setBackground(null);
         label.setEditable(false);
         label.setForeground(Color.WHITE);
         addComponent(label, bounds);

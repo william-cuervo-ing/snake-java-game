@@ -1,4 +1,4 @@
-package logic.controller;
+package logic.controllers;
 
 import logic.DirectionSnakeEnum;
 import logic.GameConstants;
@@ -11,16 +11,16 @@ import java.util.Random;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-public class Controller implements GameEventListener {
+public class GameController implements GameEventListener {
 
     private Snake snakeOne;
     private Snake snakeTwo;
     private Prize prize;
 
-    public static GameMode gameMode;
+    public static GameMode gameMode = GameMode.ONE_PLAYER;
     private final GameWindow window;
 
-    public Controller(){
+    public GameController(){
         window = new GameWindow(this);
     }
 
@@ -29,17 +29,19 @@ public class Controller implements GameEventListener {
     }
 
     public void startGame() {
+        System.out.println("Controller startGame");
         this.initSnakes();
         this.createPrize();
+        System.out.println("startGame");
         this.window.startGame();
     }
 
     private void initSnakes() {
         snakeOne = new Snake(this);
-        snakeTwo = Controller.gameMode == GameMode.TWO_PLAYERS ?
+        snakeTwo = GameController.gameMode == GameMode.TWO_PLAYERS ?
             new Snake(this) : null;
         snakeOne.start();
-        if (Controller.gameMode == GameMode.TWO_PLAYERS) {
+        if (GameController.gameMode == GameMode.TWO_PLAYERS) {
             snakeTwo.start();
         }
         this.window.setSnakes(this.snakeOne, this.snakeTwo);
@@ -93,14 +95,15 @@ public class Controller implements GameEventListener {
 
     @Override
     public void startGameModeOnePlayer() {
-        Controller.gameMode = GameMode.ONE_PLAYER;
-        window.startGame();
+        GameController.gameMode = GameMode.ONE_PLAYER;
+        System.out.println("startGameModeOnePlayer");
+        startGame();
     }
 
     @Override
     public void startGameModeTwoPlayers() {
-        Controller.gameMode = GameMode.TWO_PLAYERS;
-        window.startGame();
+        GameController.gameMode = GameMode.TWO_PLAYERS;
+        startGame();
     }
 
     @Override

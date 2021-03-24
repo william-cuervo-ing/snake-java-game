@@ -1,13 +1,11 @@
 package ui;
 
 import logic.DirectionSnakeEnum;
-import logic.controller.Controller;
-import logic.controller.GameMode;
+import logic.controllers.GameController;
+import logic.controllers.GameMode;
 import logic.models.Prize;
 import logic.models.Snake;
 import ui.board.JPanelPauseMenu;
-import ui.board.JPanelSpaceGame;
-import ui.board.PanelScoreGame;
 
 import javax.swing.*;
 import java.awt.*;
@@ -18,81 +16,66 @@ import java.awt.event.KeyListener;
 
 public class GameWindow extends JFrame implements KeyListener, ActionListener {
 
-
     private JPanelEndGame panelEndGame;
-    private JPanelSpaceGame panelSpaceGame;
-    private PanelScoreGame panelScoreGameMenu;
     private JPanelMainMenu panelMainMenu;
     private JPanelPauseMenu panelPauseMenu;
 
-    private final Controller controller;
+    private final GameController controller;
 
-    public GameWindow(Controller controller) {
+    public GameWindow(GameController controller) {
         this.controller = controller;
         this.addKeyListener(this);
-        this.setLayout(null);
-        this.setTitle("Snake Game");
         this.setSize(UIConstants.WINDOW_WIDTH, UIConstants.WINDOW_HEIGHT);
+        this.setLayout(null);
+        this.getContentPane().setLayout(null);
+        this.setTitle("Snake Game");
         this.setLocationRelativeTo(null);
         this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-        this.setResizable(false);
+        this.setResizable(true);
         this.createScreens();
-        this.requestFocusInWindow();
         this.setVisible(true);
+        this.requestFocusInWindow();
     }
 
     private void createScreens() {
         panelMainMenu = new JPanelMainMenu(this);
-        this.add(panelMainMenu);
-
-        panelSpaceGame = new JPanelSpaceGame(controller);
-        this.add(panelSpaceGame);
-
-        panelScoreGameMenu = new PanelScoreGame(this);
-        this.add(panelScoreGameMenu);
-
         panelPauseMenu = new JPanelPauseMenu(this);
-        this.add(panelPauseMenu);
-
         panelEndGame = new JPanelEndGame(this);
-        this.add(panelMainMenu);
     }
 
     public void showMainMenu() {
-        this.hidePanels();
-        panelMainMenu.setVisible(true);
+        this.showComponent(panelMainMenu);
     }
 
     public void printScores(Snake snakeOne, Snake snakeTwo) {
         panelScoreGameMenu.setScorePlayer1(snakeOne.getScore());
-        if (Controller.gameMode == GameMode.TWO_PLAYERS) {
+        if (GameController.gameMode == GameMode.TWO_PLAYERS) {
             panelScoreGameMenu.setScorePlayer2(snakeTwo.getScore());
         }
     }
 
     public void showPauseMenu() {
-        this.hidePanels();
-        panelPauseMenu.setVisible(true);
+        this.showComponent(panelPauseMenu);
         panelSpaceGame.pause();
     }
 
     public void startGame() {
-        Thread thread = new Thread(panelSpaceGame);
-        thread.start();
+        System.out.println("window startGame");
         showGameBoard();
+//        Thread thread = new Thread(panelSpaceGame);
+//        thread.start();
     }
 
     public void showGameBoard() {
-        this.hidePanels();
-        panelScoreGameMenu.setVisible(true);
-        panelSpaceGame.resume();
+        System.out.println("showGameBoard ");
+//        panelSpaceGame.resume();
+        this.showComponent(panelSpaceGame);
     }
 
     public void showGameOver(Snake snakeOne, Snake snakeTwo) {
-        this.hidePanels();
-        panelEndGame.setVisible(true);
+        this.showComponent(panelEndGame);
         panelEndGame.setScorePlayer1(snakeOne.getScore());
-        if (Controller.gameMode == GameMode.TWO_PLAYERS) {
+        if (GameController.gameMode == GameMode.TWO_PLAYERS) {
             panelEndGame.setScorePlayer1(snakeTwo.getScore());
         }
         panelSpaceGame.terminate();
@@ -117,7 +100,7 @@ public class GameWindow extends JFrame implements KeyListener, ActionListener {
                 controller.pause();
                 break;
         }
-        if (Controller.gameMode == GameMode.TWO_PLAYERS) {
+        if (GameController.gameMode == GameMode.TWO_PLAYERS) {
             switch (key) {
                 case KeyEvent.VK_A:
                     this.controller.setDirectionSnakeTwo(DirectionSnakeEnum.LEFT);
@@ -162,10 +145,15 @@ public class GameWindow extends JFrame implements KeyListener, ActionListener {
         }
     }
 
-    private void hidePanels() {
-        for (Component component : this.getComponents()) {
-            component.setVisible(false);
+    private void showComponent(Component component) {
+        for (int i = 0; i < getContentPane().getComponents().length; i++) {
+            getContentPane().getComponents()[i].setVisible(false);
+            getContentPane().remove(i);
+            i = 0;
         }
+        getContentPane().add(component);
+        component.setVisible(true);
+        System.out.println("Finaliza showComponent"  + getContentPane().getComponents().length);
     }
 
     public void setSnakes(Snake snakeOne, Snake snakeTwo) {
