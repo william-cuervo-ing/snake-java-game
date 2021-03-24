@@ -1,10 +1,10 @@
 package main;
 
-import logic.controllers.GameController;
+import ui.GameWindow;
 
 public class Main {
 
 	public static void main(String[] args) {
-		new GameController().init();
+		new GameWindow();
 	}
 }
