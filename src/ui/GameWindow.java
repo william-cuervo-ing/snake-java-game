@@ -3,6 +3,7 @@ package ui;
 import logic.DirectionSnakeEnum;
 import logic.controllers.GameController;
 import logic.controllers.GameMode;
+import logic.controllers.NavigationController;
 import logic.models.Prize;
 import logic.models.Snake;
 import ui.board.JPanelPauseMenu;
@@ -20,10 +21,10 @@ public class GameWindow extends JFrame implements KeyListener, ActionListener {
     private JPanelMainMenu panelMainMenu;
     private JPanelPauseMenu panelPauseMenu;
 
-    private final GameController controller;
+    private final NavigationController navigationController;
 
-    public GameWindow(GameController controller) {
-        this.controller = controller;
+    public GameWindow(NavigationController controller) {
+        this.navigationController = controller;
         this.addKeyListener(this);
         this.setSize(UIConstants.WINDOW_WIDTH, UIConstants.WINDOW_HEIGHT);
         this.setLayout(null);
@@ -47,103 +48,6 @@ public class GameWindow extends JFrame implements KeyListener, ActionListener {
         this.showComponent(panelMainMenu);
     }
 
-    public void printScores(Snake snakeOne, Snake snakeTwo) {
-        panelScoreGameMenu.setScorePlayer1(snakeOne.getScore());
-        if (GameController.gameMode == GameMode.TWO_PLAYERS) {
-            panelScoreGameMenu.setScorePlayer2(snakeTwo.getScore());
-        }
-    }
-
-    public void showPauseMenu() {
-        this.showComponent(panelPauseMenu);
-        panelSpaceGame.pause();
-    }
-
-    public void startGame() {
-        System.out.println("window startGame");
-        showGameBoard();
-//        Thread thread = new Thread(panelSpaceGame);
-//        thread.start();
-    }
-
-    public void showGameBoard() {
-        System.out.println("showGameBoard ");
-//        panelSpaceGame.resume();
-        this.showComponent(panelSpaceGame);
-    }
-
-    public void showGameOver(Snake snakeOne, Snake snakeTwo) {
-        this.showComponent(panelEndGame);
-        panelEndGame.setScorePlayer1(snakeOne.getScore());
-        if (GameController.gameMode == GameMode.TWO_PLAYERS) {
-            panelEndGame.setScorePlayer1(snakeTwo.getScore());
-        }
-        panelSpaceGame.terminate();
-    }
-
-    public void keyPressed(KeyEvent e) {
-        int key = e.getExtendedKeyCode();
-        switch (key) {
-            case KeyEvent.VK_LEFT:
-                this.controller.setDirectionSnakeOne(DirectionSnakeEnum.LEFT);
-                break;
-            case KeyEvent.VK_RIGHT:
-                this.controller.setDirectionSnakeOne(DirectionSnakeEnum.RIGHT);
-                break;
-            case KeyEvent.VK_UP:
-                this.controller.setDirectionSnakeOne(DirectionSnakeEnum.UP);
-                break;
-            case KeyEvent.VK_DOWN:
-                this.controller.setDirectionSnakeOne(DirectionSnakeEnum.DOWN);
-                break;
-            case KeyEvent.VK_ESCAPE:
-                controller.pause();
-                break;
-        }
-        if (GameController.gameMode == GameMode.TWO_PLAYERS) {
-            switch (key) {
-                case KeyEvent.VK_A:
-                    this.controller.setDirectionSnakeTwo(DirectionSnakeEnum.LEFT);
-                    break;
-                case KeyEvent.VK_D:
-                    this.controller.setDirectionSnakeTwo(DirectionSnakeEnum.RIGHT);
-                    break;
-                case KeyEvent.VK_W:
-                    this.controller.setDirectionSnakeTwo(DirectionSnakeEnum.UP);
-                    break;
-                case KeyEvent.VK_S:
-                    this.controller.setDirectionSnakeTwo(DirectionSnakeEnum.DOWN);
-                    break;
-            }
-        }
-    }
-
-    public void keyReleased(KeyEvent e) {
-    }
-
-    public void keyTyped(KeyEvent e) {
-    }
-
-    public void actionPerformed(ActionEvent e) {
-        String action = e.getActionCommand();
-        switch (action) {
-            case UIConstants.ACTION_COMMAND_ONE_PLAYER:
-                controller.startGameModeOnePlayer();
-                break;
-            case UIConstants.ACTION_COMMAND_TWO_PLAYERS:
-                controller.startGameModeTwoPlayers();
-                break;
-            case UIConstants.ACTION_COMMAND_EXIT:
-                controller.exit();
-                break;
-            case UIConstants.ACTION_COMMAND_MAIN_MENU:
-                controller.returnToMainMenu();
-                break;
-            case UIConstants.ACTION_COMMAND_RESUME_GAME:
-                controller.resume();
-                break;
-        }
-    }
 
     private void showComponent(Component component) {
         for (int i = 0; i < getContentPane().getComponents().length; i++) {
