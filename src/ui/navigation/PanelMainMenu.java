@@ -1,14 +1,17 @@
-package ui;
+package ui.navigation;
+
+import ui.UIConstants;
+import ui.UIUtils;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionListener;
 
-public class JPanelMainMenu extends JPanel {
+public class PanelMainMenu extends JPanel {
 
     private final ActionListener listener;
 
-    public JPanelMainMenu(ActionListener listener) {
+    public PanelMainMenu(ActionListener listener) {
         setName(this.getClass().getName());
         this.listener = listener;
         setLayout(null);

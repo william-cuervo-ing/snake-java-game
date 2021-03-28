@@ -58,7 +58,6 @@ public class JPanelSpaceGame extends JPanel implements Runnable {
         while (running) {
             this.repaint();
             synchronized (this) {
-                System.out.println("paused" + paused);
                 if (paused) {
                     try {
                         wait();

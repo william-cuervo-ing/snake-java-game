@@ -5,7 +5,7 @@ import logic.GameConstants;
 import logic.models.Prize;
 import logic.models.Snake;
 import logic.models.Vertabra;
-import ui.GameWindow;
+import ui.board.PanelGame;
 import java.util.List;
 import java.util.Random;
 import java.util.stream.Collectors;
@@ -13,27 +13,21 @@ import java.util.stream.Stream;
 
 public class GameController implements GameEventListener {
 
+    public static GameMode gameMode = GameMode.ONE_PLAYER;
+
     private Snake snakeOne;
     private Snake snakeTwo;
-    private Prize prize;
+    private final PanelGame panelGame;
+    private boolean isPaused;
 
-    public static GameMode gameMode = GameMode.ONE_PLAYER;
-    private final GameWindow window;
-
-    public GameController(){
-        window = new GameWindow(this);
-    }
-
-    public void init(){
-        this.window.showMainMenu();
+    public GameController(PanelGame panelGame){
+        this.panelGame = panelGame;
     }
 
     public void startGame() {
-        System.out.println("Controller startGame");
         this.initSnakes();
         this.createPrize();
-        System.out.println("startGame");
-        this.window.startGame();
+        panelGame.startGame();
     }
 
     private void initSnakes() {
@@ -44,7 +38,7 @@ public class GameController implements GameEventListener {
         if (GameController.gameMode == GameMode.TWO_PLAYERS) {
             snakeTwo.start();
         }
-        this.window.setSnakes(this.snakeOne, this.snakeTwo);
+        this.panelGame.setSnakes(this.snakeOne, this.snakeTwo);
     }
 
     private void createPrize() {
@@ -70,37 +64,33 @@ public class GameController implements GameEventListener {
                 // TODO: What happens if all screen is full of snakes?
             }
         }
-        this.prize = new Prize(x, y);
-        this.window.setPrize(this.prize);
+        this.panelGame.setPrize(new Prize(x, y));
     }
 
     @Override
     public void addScorePlayerOne() {
         snakeOne.setScore(snakeOne.getScore() + GameConstants.SCORE_BY_PRIZE);
-        window.printScores(snakeOne, snakeTwo);
+        panelGame.printScores(snakeOne, snakeTwo);
     }
 
     @Override
     public void addScorePlayerTwo() {
         snakeOne.setScore(snakeOne.getScore() + GameConstants.SCORE_BY_PRIZE);
         snakeTwo.setScore(snakeTwo.getScore() + GameConstants.SCORE_BY_PRIZE);
-        window.printScores(snakeOne, snakeTwo);
+        panelGame.printScores(snakeOne, snakeTwo);
     }
 
     @Override
     public void dieSnake(Snake snake) {
         snake.die();
-        window.showGameOver(snakeOne, snakeTwo);
+        panelGame.showGameOver(snakeOne, snakeTwo);
     }
 
-    @Override
     public void startGameModeOnePlayer() {
         GameController.gameMode = GameMode.ONE_PLAYER;
-        System.out.println("startGameModeOnePlayer");
         startGame();
     }
 
-    @Override
     public void startGameModeTwoPlayers() {
         GameController.gameMode = GameMode.TWO_PLAYERS;
         startGame();
@@ -116,33 +106,28 @@ public class GameController implements GameEventListener {
         this.snakeOne.setDirection(direction);
     }
 
-    @Override
     public void pause() {
-        window.showPauseMenu();
         snakeOne.pause();
         if(gameMode == GameMode.TWO_PLAYERS){
             snakeTwo.pause();
         }
+        this.isPaused = true;
     }
 
-    @Override
     public void resume() {
-        window.showGameBoard();
         snakeOne.resumeSnake();
         if(gameMode == GameMode.TWO_PLAYERS){
             snakeTwo.resumeSnake();
         }
+        this.isPaused = false;
     }
 
-    @Override
-    public void exit() {
-        System.exit(0);
-    }
-
-    @Override
-    public void returnToMainMenu() {
+    public void finalizeGame() {
         snakeOne.die();
         snakeTwo.die();
-        window.showMainMenu();
+    }
+
+    public boolean isPaused() {
+        return isPaused;
     }
 }

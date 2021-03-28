@@ -1,10 +1,10 @@
 package main;
 
-import logic.controllers.GameController;
+import ui.navigation.GameWindow;
 
 public class Main {
 
-	public static void main(String[] args) {
-		new GameController().init();
-	}
+    public static void main(String[] args) {
+        new GameWindow();
+    }
 }

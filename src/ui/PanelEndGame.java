@@ -11,11 +11,11 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-public class JPanelEndGame extends JPanel {
+public class PanelEndGame extends JPanel {
 
     private JLabel labelScorePlayer1, labelScorePlayer2;
 
-    public JPanelEndGame(ActionListener listener) {
+    public PanelEndGame(ActionListener listener) {
         setLayout(null);
         setBounds(UIConstants.FULL_SCREEN_RECTANGLE);
         setBackground(UIConstants.BACKGROUND_MENU_COLOR);
