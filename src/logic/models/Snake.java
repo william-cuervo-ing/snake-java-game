@@ -1,5 +1,6 @@
 package logic.models;
 
+import java.awt.Point;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
@@ -11,6 +12,7 @@ import ui.UIConstants;
 
 public class Snake extends Thread {
 
+    private Point auxPreviosPositionVertabra;
     private final List<Vertabra> body;
     private final GameEventListener listener;
 
@@ -31,14 +33,13 @@ public class Snake extends Thread {
         this.growing = false;
 
         Random random = new Random();
-        int x = random.nextInt(GameConstants.SCALAR_POSITION_GAME);
-        int y = random.nextInt(GameConstants.SCALAR_POSITION_GAME);
+        int x = GameConstants.VERTABRA_SIZE * 5;
+        int y = GameConstants.VERTABRA_SIZE * 4;
         direction = DirectionSnakeEnum.RIGHT;
-        lastDirection = DirectionSnakeEnum.RIGHT;
+        lastDirection = direction;
         for (int i = 0; i < GameConstants.INITIAL_SNAKE_VERTABRAS_SIZE; i++) {
-            System.out.println("x " + x);
             body.add(new Vertabra(x, y, GameConstants.VERTABRA_SIZE, GameConstants.VERTABRA_SIZE));
-            x = x - GameConstants.VERTABRA_SIZE;
+            x -= GameConstants.VERTABRA_SIZE;
         }
     }
 
@@ -69,6 +70,7 @@ public class Snake extends Thread {
     }
 
     private void moveHead() {
+        auxPreviosPositionVertabra = new Point(body.get(0).getX(), body.get(0).getY());
         switch (direction) {
             case LEFT:
                 if (!lastDirection.equals(DirectionSnakeEnum.RIGHT))
@@ -98,15 +100,17 @@ public class Snake extends Thread {
     }
 
     private void moveBody() {
-        int x = 0;
-        int y = 0;
+        int x = (int)auxPreviosPositionVertabra.getX(), y = (int)auxPreviosPositionVertabra.getY(), xAux, yAux;
         int vertabrasToMove = growing ? (body.size() - vertabrasToGrow) : body.size();
-
         for (int i = 1; i < vertabrasToMove; i++) {
-            x = body.get(i - 1).getX();
-            y = body.get(i - 1).getY();
+            xAux = body.get(i).getX();
+            yAux = body.get(i).getY();
+
             body.get(i).setX(x);
             body.get(i).setY(y);
+
+            x = xAux;
+            y = yAux;
         }
         if (growing) {
             vertabrasToGrow--;
@@ -147,29 +151,29 @@ public class Snake extends Thread {
 
     public void moveLeft() {
         body.get(0).setX(body.get(0).getX() - GameConstants.VERTABRA_SIZE);
-        if (body.get(0).getX() < GameConstants.SNAKE_GAP)
-            body.get(0).setX(UIConstants.GAME_BOARD_SIZE - (GameConstants.VERTABRA_SIZE + 1));
+        if (body.get(0).getX() < 0)
+            body.get(0).setX(UIConstants.GAME_BOARD_SIZE - GameConstants.VERTABRA_SIZE);
         lastDirection = DirectionSnakeEnum.LEFT;
     }
 
     public void moveRight() {
         body.get(0).setX(body.get(0).getX() + GameConstants.VERTABRA_SIZE);
-        if (body.get(0).getX() > UIConstants.GAME_BOARD_SIZE - GameConstants.SNAKE_GAP)
+        if (body.get(0).getX() > UIConstants.GAME_BOARD_SIZE)
             body.get(0).setX(0);
         lastDirection = DirectionSnakeEnum.RIGHT;
     }
 
     public void moveUp() {
         body.get(0).setY(body.get(0).getY() - GameConstants.VERTABRA_SIZE);
-        if (body.get(0).getY() < GameConstants.SNAKE_GAP)
-            body.get(0).setY(UIConstants.SCORE_BOARD_HEIGHT - (GameConstants.VERTABRA_SIZE + 1));
+        if (body.get(0).getY() < 0)
+            body.get(0).setY(UIConstants.GAME_BOARD_SIZE);
         lastDirection = DirectionSnakeEnum.UP;
 
     }
 
     public void moveDown() {
         body.get(0).setY(body.get(0).getY() + GameConstants.VERTABRA_SIZE);
-        if (body.get(0).getY() > UIConstants.SCORE_BOARD_HEIGHT - GameConstants.SNAKE_GAP)
+        if (body.get(0).getY() > UIConstants.GAME_BOARD_SIZE)
             body.get(0).setY(0);
         lastDirection = DirectionSnakeEnum.DOWN;
     }

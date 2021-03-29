@@ -24,12 +24,8 @@ public class JPanelSpaceGame extends JPanel implements Runnable {
     public JPanelSpaceGame(GameEventListener gameEventListener) {
         setName(this.getClass().getName());
         this.gameEventListener = gameEventListener;
-        init();
-    }
-
-    private void init() {
         this.setLayout(null);
-        this.setBounds(UIConstants.FULL_SCREEN_RECTANGLE);
+        this.setBounds(0, UIConstants.SCORE_BOARD_HEIGHT, UIConstants.GAME_BOARD_SIZE, UIConstants.GAME_BOARD_SIZE);
         this.setBackground(UIConstants.BACKGROUND_GAME_BOARD_COLOR);
         this.running = true;
         this.paused = false;
@@ -37,14 +33,17 @@ public class JPanelSpaceGame extends JPanel implements Runnable {
 
     public void paint(Graphics g) {
         super.paint(g);
-        paintSnake(g, snakeOne, UIConstants.BACKGROUND_COLOR_SNAKE_ONE);
+        Graphics2D g2 = (Graphics2D)g;
+        g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+
+        paintSnake(g2, snakeOne, UIConstants.BACKGROUND_COLOR_SNAKE_ONE);
         if (GameController.gameMode == GameMode.TWO_PLAYERS)
-            paintSnake(g, snakeTwo, UIConstants.BACKGROUND_COLOR_SNAKE_TWO);
-        paintPrize(g);
+            paintSnake(g2, snakeTwo, UIConstants.BACKGROUND_COLOR_SNAKE_TWO);
+        paintPrize(g2);
         evaluateIfScored();
     }
 
-    private void paintSnake(Graphics g, Snake snake, Color colo) {
+    private void paintSnake(Graphics2D g, Snake snake, Color colo) {
         g.setColor(colo);
         if(snake != null){
             for(Vertabra vertabra : snake.getBody()){
@@ -67,7 +66,7 @@ public class JPanelSpaceGame extends JPanel implements Runnable {
                 }
             }
             try {
-                Thread.sleep(100);
+                Thread.sleep(10);
             } catch (Exception e) {
                 System.out.println("ERROR");
                 e.printStackTrace();
@@ -90,7 +89,7 @@ public class JPanelSpaceGame extends JPanel implements Runnable {
         this.notify();
     }
 
-    private void paintPrize(Graphics g) {
+    private void paintPrize(Graphics2D g) {
         g.setColor(new Color(139, 2, 0));
         g.fillOval(prize.getX(), prize.getY(), GameConstants.VERTABRA_SIZE, GameConstants.VERTABRA_SIZE);
     }

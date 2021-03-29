@@ -14,7 +14,7 @@ public class GameWindow extends JFrame implements ActionListener, NavigationList
     private final PanelGame panelGame;
 
     public GameWindow() {
-//        this.setUndecorated(true);
+        this.setUndecorated(true);
         this.setSize(UIConstants.WINDOW_WIDTH, UIConstants.WINDOW_HEIGHT);
         this.setLayout(null);
         this.getContentPane().setLayout(null);

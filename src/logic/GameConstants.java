@@ -5,12 +5,11 @@ import ui.UIConstants;
 public class GameConstants {
 
     // Fonts
-    public static final short DELAY_SNAKE_MOVE_TIME = 1000;
-    public static final short VERTABRA_SIZE = 30;
-
+    public static final short DELAY_SNAKE_MOVE_TIME = 200;
+    public static final short VERTABRA_SIZE = 20;
     public static final short SNAKE_GAP = 30;
 
-    public static final short INITIAL_SNAKE_VERTABRAS_SIZE = 5;
+    public static final short INITIAL_SNAKE_VERTABRAS_SIZE = 3;
 
     public static final int VERTABRAS_TO_GROW = 2;
 
