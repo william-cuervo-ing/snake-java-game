@@ -66,7 +66,7 @@ public class PanelMainMenu extends JPanel {
         JButton btnTwoPlayers = UIUtils.buildButton("2 Players", listener, UIConstants.ACTION_COMMAND_TWO_PLAYERS);
         addComponent(btnTwoPlayers, new Rectangle(100, 250, 240, 40));
 
-        JButton btnExit = UIUtils.buildButton("Exit", listener, UIConstants.ACTION_COMMAND_TWO_PLAYERS);
+        JButton btnExit = UIUtils.buildButton("Exit", listener, UIConstants.ACTION_COMMAND_EXIT);
         addComponent(btnExit, new Rectangle(100, 350, 240, 40));
     }
 

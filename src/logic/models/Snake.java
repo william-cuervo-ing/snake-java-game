@@ -180,9 +180,9 @@ public class Snake extends Thread {
 
     public void showPositionVertabras() {
         System.out.println("------------------------------------------");
-        for (int i = 0; i < body.size(); i++) {
-            System.out.println("x : " + body.get(i).getX() + " y: " + body.get(i).getY() +
-                " height: " + body.get(i).getHeight() + " width: " + body.get(i).getWidth());
+        for (Vertabra vertabra : body) {
+            System.out.println("x : " + vertabra.getX() + " y: " + vertabra.getY() +
+                " height: " + vertabra.getHeight() + " width: " + vertabra.getWidth());
         }
     }
 

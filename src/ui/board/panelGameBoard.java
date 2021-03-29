@@ -12,7 +12,7 @@ import ui.UIConstants;
 import javax.swing.*;
 import java.awt.*;
 
-public class JPanelSpaceGame extends JPanel implements Runnable {
+public class panelGameBoard extends JPanel implements Runnable {
 
     private final GameEventListener gameEventListener;
     private Snake snakeOne;
@@ -21,8 +21,7 @@ public class JPanelSpaceGame extends JPanel implements Runnable {
     private boolean paused;
     private Prize prize;
 
-    public JPanelSpaceGame(GameEventListener gameEventListener) {
-        setName(this.getClass().getName());
+    public panelGameBoard(GameEventListener gameEventListener) {
         this.gameEventListener = gameEventListener;
         this.setLayout(null);
         this.setBounds(0, UIConstants.SCORE_BOARD_HEIGHT, UIConstants.GAME_BOARD_SIZE, UIConstants.GAME_BOARD_SIZE);

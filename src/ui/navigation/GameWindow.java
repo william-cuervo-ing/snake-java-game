@@ -3,8 +3,10 @@ package ui.navigation;
 import ui.UIConstants;
 import ui.board.PanelGame;
 import javax.swing.JFrame;
+import javax.swing.SwingUtilities;
 import javax.swing.WindowConstants;
 import java.awt.Component;
+import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -14,7 +16,6 @@ public class GameWindow extends JFrame implements ActionListener, NavigationList
     private final PanelGame panelGame;
 
     public GameWindow() {
-        this.setUndecorated(true);
         this.setSize(UIConstants.WINDOW_WIDTH, UIConstants.WINDOW_HEIGHT);
         this.setLayout(null);
         this.getContentPane().setLayout(null);
@@ -26,6 +27,11 @@ public class GameWindow extends JFrame implements ActionListener, NavigationList
         panelGame = new PanelGame(this, this);
         this.showMainMenu();
         this.setVisible(true);
+        SwingUtilities.invokeLater(() -> {
+            getContentPane().setPreferredSize(new Dimension(UIConstants.WINDOW_WIDTH, UIConstants.WINDOW_HEIGHT));
+            pack();
+            System.out.println(getContentPane().getSize());
+        });
     }
 
     @Override
@@ -58,7 +64,7 @@ public class GameWindow extends JFrame implements ActionListener, NavigationList
                 startGameTwoPlayers();
                 break;
             case UIConstants.ACTION_COMMAND_EXIT:
-                this.exit();
+                exit();
                 break;
         }
     }

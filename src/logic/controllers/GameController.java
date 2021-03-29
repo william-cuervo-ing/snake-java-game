@@ -71,6 +71,7 @@ public class GameController implements GameEventListener {
     public void addScorePlayerOne() {
         snakeOne.setScore(snakeOne.getScore() + GameConstants.SCORE_BY_PRIZE);
         panelGame.printScores(snakeOne, snakeTwo);
+        createPrize();
     }
 
     @Override
@@ -78,6 +79,7 @@ public class GameController implements GameEventListener {
         snakeOne.setScore(snakeOne.getScore() + GameConstants.SCORE_BY_PRIZE);
         snakeTwo.setScore(snakeTwo.getScore() + GameConstants.SCORE_BY_PRIZE);
         panelGame.printScores(snakeOne, snakeTwo);
+        createPrize();
     }
 
     @Override

@@ -21,7 +21,7 @@ public class PanelGame extends JPanel implements ActionListener, KeyListener {
     private JPanelPauseMenu panelPauseMenu;
 
     private PanelScoreGame panelScore;
-    private JPanelSpaceGame panelSpaceGame;
+    private panelGameBoard panelGameBoard;
 
     private final GameController controller;
     private final NavigationListener navigationListener;
@@ -38,8 +38,8 @@ public class PanelGame extends JPanel implements ActionListener, KeyListener {
     }
 
     private void init(ActionListener listener) {
-        panelSpaceGame = new JPanelSpaceGame(controller);
-        add(panelSpaceGame);
+        panelGameBoard = new panelGameBoard(controller);
+        add(panelGameBoard);
 
         panelScore = new PanelScoreGame();
         add(panelScore);
@@ -82,19 +82,20 @@ public class PanelGame extends JPanel implements ActionListener, KeyListener {
 
     public void showPauseMenu() {
         showComponent(panelPauseMenu);
-        panelSpaceGame.pause();
+        panelGameBoard.pause();
     }
 
     public void startGame() {
         showGameBoard();
-        Thread thread = new Thread(panelSpaceGame);
+        Thread thread = new Thread(panelGameBoard);
         thread.start();
     }
 
     private void showGameBoard() {
         hideComponents();
         panelScore.setVisible(true);
-        panelSpaceGame.setVisible(true);
+        panelGameBoard.setVisible(true);
+        panelGameBoard.resume();
     }
 
     public void showGameOver(Snake snakeOne, Snake snakeTwo) {
@@ -103,12 +104,11 @@ public class PanelGame extends JPanel implements ActionListener, KeyListener {
             panelEndGame.setScorePlayer1(snakeTwo.getScore());
         }
         showComponent(panelEndGame);
-        panelSpaceGame.terminate();
+        panelGameBoard.terminate();
     }
 
     public void keyPressed(KeyEvent e) {
         int key = e.getExtendedKeyCode();
-        System.out.println("key: " + key);
         switch (key) {
             case KeyEvent.VK_LEFT:
                 this.controller.setDirectionSnakeOne(DirectionSnakeEnum.LEFT);
@@ -162,12 +162,12 @@ public class PanelGame extends JPanel implements ActionListener, KeyListener {
     }
 
     public void setSnakes(Snake snakeOne, Snake snakeTwo) {
-        panelSpaceGame.setSnakeOne(snakeOne);
-        panelSpaceGame.setSnakeTwo(snakeTwo);
+        panelGameBoard.setSnakeOne(snakeOne);
+        panelGameBoard.setSnakeTwo(snakeTwo);
     }
 
     public void setPrize(Prize prize) {
-        panelSpaceGame.setPrize(prize);
+        panelGameBoard.setPrize(prize);
     }
 
     private void tooglePause() {
@@ -179,12 +179,12 @@ public class PanelGame extends JPanel implements ActionListener, KeyListener {
     }
 
     private void pause() {
-        controller.pause();
         showPauseMenu();
+        controller.pause();
     }
 
     private void resume() {
-        controller.pause();
         showGameBoard();
+        controller.resume();
     }
 }
