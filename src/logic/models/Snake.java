@@ -30,7 +30,7 @@ public class Snake extends Thread {
         this.growing = false;
 
         int x = GameConstants.INITIAL_SNAKE_VERTABRAS_SIZE * 2;
-        int y = GameConstants.INITIAL_SNAKE_VERTABRAS_SIZE * 2;
+        int y = (int)(Math.random() * (GameConstants.POSTISIONS_AVAILABLE_PER_ROW - 1));
         direction = DirectionSnakeEnum.RIGHT;
         lastDirection = direction;
         for (int i = 0; i < GameConstants.INITIAL_SNAKE_VERTABRAS_SIZE; i++) {
@@ -118,11 +118,7 @@ public class Snake extends Thread {
     }
 
     private void evaluateIfShouldDie() {
-        System.out.println("body.get(0).getX() + " + body.get(0).getX());
-        System.out.println("body.get(0).getY() + " + body.get(0).getY());
         for (int i = 1; i < body.size(); i++) {
-            System.out.println("body.get(i).getX() + " + body.get(i).getX());
-            System.out.println("body.get(i).getY() + " + body.get(i).getY());
             if ((body.get(0).getX() == body.get(i).getX()) && (body.get(0).getY() == body.get(i).getY())) {
                 listener.dieSnake(this);
                 return;

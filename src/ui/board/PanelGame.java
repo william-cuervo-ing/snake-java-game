@@ -18,7 +18,7 @@ import java.awt.event.KeyListener;
 public class PanelGame extends JPanel implements ActionListener, KeyListener {
 
     private PanelEndGame panelEndGame;
-    private JPanelPauseMenu panelPauseMenu;
+    private PanelPauseMenu panelPauseMenu;
 
     private PanelScoreGame panelScore;
     private panelGameBoard panelGameBoard;
@@ -26,12 +26,12 @@ public class PanelGame extends JPanel implements ActionListener, KeyListener {
     private final GameController controller;
     private final NavigationListener navigationListener;
 
-    public PanelGame(ActionListener listener, NavigationListener navigationListener) {
+    public PanelGame(NavigationListener navigationListener) {
         this.navigationListener = navigationListener;
         this.controller = new GameController(this);
         setLayout(null);
         setBounds(GameConstants.FULL_SCREEN_RECTANGLE);
-        init(listener);
+        init(this);
         addKeyListener(this);
         setFocusable(true);
         requestFocusInWindow();
@@ -44,7 +44,7 @@ public class PanelGame extends JPanel implements ActionListener, KeyListener {
         panelScore = new PanelScoreGame();
         add(panelScore);
 
-        panelPauseMenu = new JPanelPauseMenu(listener);
+        panelPauseMenu = new PanelPauseMenu(listener);
         add(panelPauseMenu);
 
         panelEndGame = new PanelEndGame(listener);
@@ -62,15 +62,20 @@ public class PanelGame extends JPanel implements ActionListener, KeyListener {
             case GameConstants.ACTION_COMMAND_RESUME_GAME:
                 resume();
                 break;
+            case GameConstants.ACTION_COMMAND_EXIT:
+                navigationListener.exit();
+                break;
         }
     }
 
     public void startGameModeOnePlayer() {
         this.controller.startGameModeOnePlayer();
+        this.panelScore.setupScoreLabels();
     }
 
     public void startGameModeTwoPlayers() {
         this.controller.startGameModeTwoPlayers();
+        this.panelScore.setupScoreLabels();
     }
 
     public void printScores(Snake snakeOne, Snake snakeTwo) {

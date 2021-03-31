@@ -6,9 +6,9 @@ import ui.UIUtils;
 import javax.swing.*;
 import java.awt.event.ActionListener;
 
-public class JPanelPauseMenu extends JPanel{
+public class PanelPauseMenu extends JPanel{
 	
-	public JPanelPauseMenu(ActionListener listener) {
+	public PanelPauseMenu(ActionListener listener) {
 		setLayout(null);
 		setBounds(GameConstants.FULL_SCREEN_RECTANGLE);
 		setBackground(GameConstants.BACKGROUND_MENU_COLOR);
@@ -17,11 +17,11 @@ public class JPanelPauseMenu extends JPanel{
 	
 	public void initialize(ActionListener listener){
 		JButton jbtnResume = UIUtils.buildButton("Resume", listener, GameConstants.ACTION_COMMAND_RESUME_GAME);
-		jbtnResume.setBounds(100, 220, 240, 40);
+		jbtnResume.setBounds(GameConstants.X_POSITION_BUTTON_CENTERED, 220, GameConstants.BUTTON_WIDTH, GameConstants.BUTTON_HEIGHT);
 		add(jbtnResume);
 
 		JButton jbtnExit = UIUtils.buildButton("Exit", listener, GameConstants.ACTION_COMMAND_EXIT);
-		jbtnExit.setBounds(100, 320, 240, 40);
+		jbtnExit.setBounds(GameConstants.X_POSITION_BUTTON_CENTERED, 320, GameConstants.BUTTON_WIDTH, GameConstants.BUTTON_HEIGHT);
 		add(jbtnExit);
 	}
 }

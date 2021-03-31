@@ -24,13 +24,12 @@ public class GameWindow extends JFrame implements ActionListener, NavigationList
         this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         this.setResizable(true);
         panelMainMenu = new PanelMainMenu(this);
-        panelGame = new PanelGame(this, this);
+        panelGame = new PanelGame(this);
         this.showMainMenu();
         this.setVisible(true);
         SwingUtilities.invokeLater(() -> {
             getContentPane().setPreferredSize(new Dimension(GameConstants.WINDOW_WIDTH, GameConstants.WINDOW_HEIGHT));
             pack();
-            System.out.println(getContentPane().getSize());
         });
     }
 
@@ -78,5 +77,6 @@ public class GameWindow extends JFrame implements ActionListener, NavigationList
     public void startGameTwoPlayers() {
         showComponent(panelGame);
         panelGame.startGameModeTwoPlayers();
+        panelGame.requestFocus();
     }
 }

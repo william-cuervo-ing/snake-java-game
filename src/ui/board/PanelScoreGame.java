@@ -22,10 +22,9 @@ public class PanelScoreGame extends JPanel {
         this.setBackground(GameConstants.BACKGROUND_SCORE_COLOR);
         Border border = BorderFactory.createLineBorder(GameConstants.BACKGROUND_SCORE_COLOR.darker(), 1);
         this.setBorder(border);
-        this.initialize();
     }
 
-    public void initialize() {
+    public void setupScoreLabels() {
         switch (GameController.gameMode) {
             case ONE_PLAYER:
                 this.initializeOnePlayerMode();

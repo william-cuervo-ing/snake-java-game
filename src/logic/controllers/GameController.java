@@ -75,7 +75,6 @@ public class GameController implements GameEventListener {
 
     @Override
     public void addScorePlayerTwo() {
-        snakeOne.setScore(snakeOne.getScore() + GameConstants.SCORE_BY_PRIZE);
         snakeTwo.setScore(snakeTwo.getScore() + GameConstants.SCORE_BY_PRIZE);
         panelGame.printScores(snakeOne, snakeTwo);
         createPrize();
@@ -105,7 +104,7 @@ public class GameController implements GameEventListener {
 
     @Override
     public void setDirectionSnakeTwo(DirectionSnakeEnum direction) {
-        this.snakeOne.setDirection(direction);
+        this.snakeTwo.setDirection(direction);
     }
 
     public void pause() {
@@ -126,7 +125,9 @@ public class GameController implements GameEventListener {
 
     public void finalizeGame() {
         snakeOne.die();
-        snakeTwo.die();
+        if (gameMode == GameMode.TWO_PLAYERS) {
+            snakeTwo.die();
+        }
     }
 
     public boolean isPaused() {

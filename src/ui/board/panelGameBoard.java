@@ -59,6 +59,7 @@ public class panelGameBoard extends JPanel implements Runnable {
     }
 
     public void run() {
+        this.running = true;
         while (running) {
             this.repaint();
             synchronized (this) {
@@ -73,7 +74,6 @@ public class panelGameBoard extends JPanel implements Runnable {
             try {
                 Thread.sleep(GameConstants.DELAY_SNAKE_MOVE_TIME);
             } catch (Exception e) {
-                System.out.println("ERROR");
                 e.printStackTrace();
             }
         }
