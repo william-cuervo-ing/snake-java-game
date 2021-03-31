@@ -1,6 +1,6 @@
 package ui.board;
 
-import ui.UIConstants;
+import logic.GameConstants;
 import ui.UIUtils;
 
 import javax.swing.*;
@@ -10,17 +10,17 @@ public class JPanelPauseMenu extends JPanel{
 	
 	public JPanelPauseMenu(ActionListener listener) {
 		setLayout(null);
-		setBounds(UIConstants.FULL_SCREEN_RECTANGLE);
-		setBackground(UIConstants.BACKGROUND_MENU_COLOR);
+		setBounds(GameConstants.FULL_SCREEN_RECTANGLE);
+		setBackground(GameConstants.BACKGROUND_MENU_COLOR);
 		initialize(listener);
 	}
 	
 	public void initialize(ActionListener listener){
-		JButton jbtnResume = UIUtils.buildButton("Resume", listener, UIConstants.ACTION_COMMAND_RESUME_GAME);
+		JButton jbtnResume = UIUtils.buildButton("Resume", listener, GameConstants.ACTION_COMMAND_RESUME_GAME);
 		jbtnResume.setBounds(100, 220, 240, 40);
 		add(jbtnResume);
 
-		JButton jbtnExit = UIUtils.buildButton("Exit", listener, UIConstants.ACTION_COMMAND_EXIT);
+		JButton jbtnExit = UIUtils.buildButton("Exit", listener, GameConstants.ACTION_COMMAND_EXIT);
 		jbtnExit.setBounds(100, 320, 240, 40);
 		add(jbtnExit);
 	}

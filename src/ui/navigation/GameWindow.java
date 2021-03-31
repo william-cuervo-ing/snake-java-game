@@ -1,6 +1,6 @@
 package ui.navigation;
 
-import ui.UIConstants;
+import logic.GameConstants;
 import ui.board.PanelGame;
 import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
@@ -16,7 +16,7 @@ public class GameWindow extends JFrame implements ActionListener, NavigationList
     private final PanelGame panelGame;
 
     public GameWindow() {
-        this.setSize(UIConstants.WINDOW_WIDTH, UIConstants.WINDOW_HEIGHT);
+        this.setSize(GameConstants.WINDOW_WIDTH, GameConstants.WINDOW_HEIGHT);
         this.setLayout(null);
         this.getContentPane().setLayout(null);
         this.setTitle("Snake Game");
@@ -28,7 +28,7 @@ public class GameWindow extends JFrame implements ActionListener, NavigationList
         this.showMainMenu();
         this.setVisible(true);
         SwingUtilities.invokeLater(() -> {
-            getContentPane().setPreferredSize(new Dimension(UIConstants.WINDOW_WIDTH, UIConstants.WINDOW_HEIGHT));
+            getContentPane().setPreferredSize(new Dimension(GameConstants.WINDOW_WIDTH, GameConstants.WINDOW_HEIGHT));
             pack();
             System.out.println(getContentPane().getSize());
         });
@@ -57,13 +57,13 @@ public class GameWindow extends JFrame implements ActionListener, NavigationList
     public void actionPerformed(ActionEvent e) {
         String action = e.getActionCommand();
         switch (action) {
-            case UIConstants.ACTION_COMMAND_ONE_PLAYER:
+            case GameConstants.ACTION_COMMAND_ONE_PLAYER:
                 startGameOnePlayer();
                 break;
-            case UIConstants.ACTION_COMMAND_TWO_PLAYERS:
+            case GameConstants.ACTION_COMMAND_TWO_PLAYERS:
                 startGameTwoPlayers();
                 break;
-            case UIConstants.ACTION_COMMAND_EXIT:
+            case GameConstants.ACTION_COMMAND_EXIT:
                 exit();
                 break;
         }

@@ -1,12 +1,12 @@
 package ui.board;
 
 import logic.DirectionSnakeEnum;
+import logic.GameConstants;
 import logic.controllers.GameController;
 import logic.controllers.GameMode;
 import logic.models.Prize;
 import logic.models.Snake;
 import ui.PanelEndGame;
-import ui.UIConstants;
 import ui.navigation.NavigationListener;
 import javax.swing.JPanel;
 import java.awt.Component;
@@ -30,7 +30,7 @@ public class PanelGame extends JPanel implements ActionListener, KeyListener {
         this.navigationListener = navigationListener;
         this.controller = new GameController(this);
         setLayout(null);
-        setBounds(UIConstants.FULL_SCREEN_RECTANGLE);
+        setBounds(GameConstants.FULL_SCREEN_RECTANGLE);
         init(listener);
         addKeyListener(this);
         setFocusable(true);
@@ -55,11 +55,11 @@ public class PanelGame extends JPanel implements ActionListener, KeyListener {
     public void actionPerformed(ActionEvent e) {
         String action = e.getActionCommand();
         switch (action) {
-            case UIConstants.ACTION_COMMAND_MAIN_MENU:
+            case GameConstants.ACTION_COMMAND_MAIN_MENU:
                 controller.finalizeGame();
                 navigationListener.showMainMenu();
                 break;
-            case UIConstants.ACTION_COMMAND_RESUME_GAME:
+            case GameConstants.ACTION_COMMAND_RESUME_GAME:
                 resume();
                 break;
         }

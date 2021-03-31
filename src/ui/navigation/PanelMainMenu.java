@@ -1,6 +1,6 @@
 package ui.navigation;
 
-import ui.UIConstants;
+import logic.GameConstants;
 import ui.UIUtils;
 
 import javax.swing.*;
@@ -15,8 +15,8 @@ public class PanelMainMenu extends JPanel {
         setName(this.getClass().getName());
         this.listener = listener;
         setLayout(null);
-        setBounds(UIConstants.FULL_SCREEN_RECTANGLE);
-        setBackground(UIConstants.BACKGROUND_MENU_COLOR);
+        setBounds(GameConstants.FULL_SCREEN_RECTANGLE);
+        setBackground(GameConstants.BACKGROUND_MENU_COLOR);
         initialize();
     }
 
@@ -41,7 +41,7 @@ public class PanelMainMenu extends JPanel {
         addControlInstruction(controlsText, new Rectangle(300, 20, 150, 80));
 
         addLabel("Pause:    Esc", new Rectangle(20, 100, 100, 20));
-        addLabel("Developed by William Cuervo", new Rectangle(UIConstants.WINDOW_HEIGHT - 60, 470, 140, 20));
+        addLabel("Developed by William Cuervo", new Rectangle(GameConstants.WINDOW_HEIGHT - 60, 470, 140, 20));
     }
 
     private void addLabel(String text, Rectangle bounds) {
@@ -60,13 +60,13 @@ public class PanelMainMenu extends JPanel {
     }
 
     private void addButtons() {
-        JButton btnOnePlayer = UIUtils.buildButton("1 Player", listener, UIConstants.ACTION_COMMAND_ONE_PLAYER);
+        JButton btnOnePlayer = UIUtils.buildButton("1 Player", listener, GameConstants.ACTION_COMMAND_ONE_PLAYER);
         addComponent(btnOnePlayer, new Rectangle(100, 150, 240, 40));
 
-        JButton btnTwoPlayers = UIUtils.buildButton("2 Players", listener, UIConstants.ACTION_COMMAND_TWO_PLAYERS);
+        JButton btnTwoPlayers = UIUtils.buildButton("2 Players", listener, GameConstants.ACTION_COMMAND_TWO_PLAYERS);
         addComponent(btnTwoPlayers, new Rectangle(100, 250, 240, 40));
 
-        JButton btnExit = UIUtils.buildButton("Exit", listener, UIConstants.ACTION_COMMAND_EXIT);
+        JButton btnExit = UIUtils.buildButton("Exit", listener, GameConstants.ACTION_COMMAND_EXIT);
         addComponent(btnExit, new Rectangle(100, 350, 240, 40));
     }
 

@@ -1,7 +1,7 @@
 package ui.board;
 
+import logic.GameConstants;
 import logic.controllers.GameController;
-import ui.UIConstants;
 
 import javax.swing.*;
 import javax.swing.border.Border;
@@ -12,15 +12,15 @@ import java.awt.*;
  */
 public class PanelScoreGame extends JPanel {
 
-    private final Font font = new Font(UIConstants.DEFAULT_FONT_NAME, Font.BOLD, 18);
+    private final Font font = new Font(GameConstants.DEFAULT_FONT_NAME, Font.BOLD, 18);
     private JLabel labelScorePlayer1;
     private JLabel labelScorePlayer2;
 
     public PanelScoreGame() {
         this.setLayout(null);
-        this.setBounds(-1, -1, UIConstants.WINDOW_WIDTH, UIConstants.SCORE_BOARD_HEIGHT);
-        this.setBackground(UIConstants.BACKGROUND_SCORE_COLOR);
-        Border border = BorderFactory.createLineBorder(UIConstants.BACKGROUND_SCORE_COLOR.darker(), 1);
+        this.setBounds(-1, -1, GameConstants.WINDOW_WIDTH, GameConstants.SCORE_BOARD_HEIGHT);
+        this.setBackground(GameConstants.BACKGROUND_SCORE_COLOR);
+        Border border = BorderFactory.createLineBorder(GameConstants.BACKGROUND_SCORE_COLOR.darker(), 1);
         this.setBorder(border);
         this.initialize();
     }

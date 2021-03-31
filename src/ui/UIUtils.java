@@ -1,5 +1,7 @@
 package ui;
 
+import logic.GameConstants;
+
 import javax.swing.*;
 import javax.swing.border.Border;
 import java.awt.*;
@@ -11,8 +13,8 @@ public class UIUtils {
         Border borderButton = BorderFactory.createLineBorder(Color.white, 1);
 
         JButton btnReturnToMenu = new JButton(buttonText);
-        btnReturnToMenu.setBackground(UIConstants.BACKGROUND_BUTTON_COLOR);
-        btnReturnToMenu.setFont(UIConstants.FONT_BUTTON);
+        btnReturnToMenu.setBackground(GameConstants.BACKGROUND_BUTTON_COLOR);
+        btnReturnToMenu.setFont(GameConstants.FONT_BUTTON);
         btnReturnToMenu.setForeground(Color.white);
         btnReturnToMenu.setBorder(borderButton);
         btnReturnToMenu.setFocusPainted(false);

@@ -1,18 +1,15 @@
 package logic.models;
 
-import java.awt.Point;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Random;
-
 import logic.DirectionSnakeEnum;
 import logic.GameConstants;
 import logic.controllers.GameEventListener;
-import ui.UIConstants;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class Snake extends Thread {
 
-    private Point auxPreviosPositionVertabra;
+    private Vertabra auxPreviosPositionVertabra;
     private final List<Vertabra> body;
     private final GameEventListener listener;
 
@@ -27,19 +24,18 @@ public class Snake extends Thread {
 
     public Snake(GameEventListener listener) {
         this.listener = listener;
-        this.body = new LinkedList<>();
+        this.body = new ArrayList<>();
         this.alive = true;
         this.paused = false;
         this.growing = false;
 
-        Random random = new Random();
-        int x = GameConstants.VERTABRA_SIZE * 5;
-        int y = GameConstants.VERTABRA_SIZE * 4;
+        int x = GameConstants.INITIAL_SNAKE_VERTABRAS_SIZE * 2;
+        int y = GameConstants.INITIAL_SNAKE_VERTABRAS_SIZE * 2;
         direction = DirectionSnakeEnum.RIGHT;
         lastDirection = direction;
         for (int i = 0; i < GameConstants.INITIAL_SNAKE_VERTABRAS_SIZE; i++) {
-            body.add(new Vertabra(x, y, GameConstants.VERTABRA_SIZE, GameConstants.VERTABRA_SIZE));
-            x -= GameConstants.VERTABRA_SIZE;
+            body.add(new Vertabra(x, y));
+            x--;
         }
     }
 
@@ -70,7 +66,7 @@ public class Snake extends Thread {
     }
 
     private void moveHead() {
-        auxPreviosPositionVertabra = new Point(body.get(0).getX(), body.get(0).getY());
+        auxPreviosPositionVertabra = new Vertabra(body.get(0).getX(), body.get(0).getY());
         switch (direction) {
             case LEFT:
                 if (!lastDirection.equals(DirectionSnakeEnum.RIGHT))
@@ -100,7 +96,7 @@ public class Snake extends Thread {
     }
 
     private void moveBody() {
-        int x = (int)auxPreviosPositionVertabra.getX(), y = (int)auxPreviosPositionVertabra.getY(), xAux, yAux;
+        int x = auxPreviosPositionVertabra.getX(), y = auxPreviosPositionVertabra.getY(), xAux, yAux;
         int vertabrasToMove = growing ? (body.size() - vertabrasToGrow) : body.size();
         for (int i = 1; i < vertabrasToMove; i++) {
             xAux = body.get(i).getX();
@@ -150,40 +146,31 @@ public class Snake extends Thread {
     }
 
     public void moveLeft() {
-        body.get(0).setX(body.get(0).getX() - GameConstants.VERTABRA_SIZE);
+        body.get(0).setX(body.get(0).getX() - 1);
         if (body.get(0).getX() < 0)
-            body.get(0).setX(UIConstants.GAME_BOARD_SIZE - GameConstants.VERTABRA_SIZE);
+            body.get(0).setX(GameConstants.POSTISIONS_AVAILABLE_PER_ROW - 1);
         lastDirection = DirectionSnakeEnum.LEFT;
     }
 
     public void moveRight() {
-        body.get(0).setX(body.get(0).getX() + GameConstants.VERTABRA_SIZE);
-        if (body.get(0).getX() > UIConstants.GAME_BOARD_SIZE)
+        body.get(0).setX(body.get(0).getX() + 1);
+        if (body.get(0).getX() > GameConstants.POSTISIONS_AVAILABLE_PER_ROW - 1)
             body.get(0).setX(0);
         lastDirection = DirectionSnakeEnum.RIGHT;
     }
 
     public void moveUp() {
-        body.get(0).setY(body.get(0).getY() - GameConstants.VERTABRA_SIZE);
+        body.get(0).setY(body.get(0).getY() - 1);
         if (body.get(0).getY() < 0)
-            body.get(0).setY(UIConstants.GAME_BOARD_SIZE);
+            body.get(0).setY(GameConstants.POSTISIONS_AVAILABLE_PER_ROW - 1);
         lastDirection = DirectionSnakeEnum.UP;
-
     }
 
     public void moveDown() {
-        body.get(0).setY(body.get(0).getY() + GameConstants.VERTABRA_SIZE);
-        if (body.get(0).getY() > UIConstants.GAME_BOARD_SIZE)
+        body.get(0).setY(body.get(0).getY() + 1);
+        if (body.get(0).getY() > GameConstants.POSTISIONS_AVAILABLE_PER_ROW - 1)
             body.get(0).setY(0);
         lastDirection = DirectionSnakeEnum.DOWN;
-    }
-
-    public void showPositionVertabras() {
-        System.out.println("------------------------------------------");
-        for (Vertabra vertabra : body) {
-            System.out.println("x : " + vertabra.getX() + " y: " + vertabra.getY() +
-                " height: " + vertabra.getHeight() + " width: " + vertabra.getWidth());
-        }
     }
 
     public void setDirection(DirectionSnakeEnum direction) {
@@ -195,7 +182,7 @@ public class Snake extends Thread {
         // TODO: Maybe should use vertabrasToGrow vertabrasToGrow += vertabrasToGrow
         for (int i = 0; i < vertabrasToGrow; i++) {
             lastVertabra = body.get(body.size() - 1);
-            body.add(new Vertabra(lastVertabra.getX(), lastVertabra.getY(), GameConstants.VERTABRA_SIZE, GameConstants.VERTABRA_SIZE));
+            body.add(new Vertabra(lastVertabra.getX(), lastVertabra.getY()));
         }
         growing = true;
     }
