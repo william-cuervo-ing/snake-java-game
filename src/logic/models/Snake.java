@@ -62,7 +62,7 @@ public class Snake extends Thread {
     public void move() {
         moveHead();
         moveBody();
-//        evaluateIfShouldDie();
+        evaluateIfShouldDie();
     }
 
     private void moveHead() {

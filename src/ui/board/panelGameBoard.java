@@ -41,14 +41,21 @@ public class panelGameBoard extends JPanel implements Runnable {
         evaluateIfScored();
     }
 
-    private void paintSnake(Graphics2D g, Snake snake, Color colo) {
-        g.setColor(colo);
+    private void paintSnake(Graphics2D g, Snake snake, Color color) {
+        int innerWidth = 1;
         if (snake != null) {
+            boolean isHead = true;
             for (Vertabra vertabra : snake.getBody()) {
+                g.setColor(color);
                 g.fillRect(vertabra.getX() * GameConstants.VERTABRA_SIZE, vertabra.getY() * GameConstants.VERTABRA_SIZE, GameConstants.VERTABRA_SIZE, GameConstants.VERTABRA_SIZE);
+                if(isHead){
+                    isHead = false;
+                } else {
+                    g.setColor(color.brighter());
+                    g.fillRect(vertabra.getX() * GameConstants.VERTABRA_SIZE + innerWidth, vertabra.getY() * GameConstants.VERTABRA_SIZE + innerWidth, GameConstants.VERTABRA_SIZE - innerWidth * 2, GameConstants.VERTABRA_SIZE - innerWidth * 2);
+                }
             }
         }
-//        window.repaint(); //Error repaint
     }
 
     public void run() {
@@ -88,7 +95,7 @@ public class panelGameBoard extends JPanel implements Runnable {
     }
 
     private void paintPrize(Graphics2D g) {
-        g.setColor(new Color(139, 2, 0));
+        g.setColor(GameConstants.BACKGROUND_PRIZE_COLOR);
         g.fillOval(prize.getX() * GameConstants.VERTABRA_SIZE, prize.getY() * GameConstants.VERTABRA_SIZE, GameConstants.VERTABRA_SIZE, GameConstants.VERTABRA_SIZE);
     }
 

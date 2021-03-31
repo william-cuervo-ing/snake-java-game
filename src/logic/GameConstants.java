@@ -20,11 +20,12 @@ public class GameConstants {
 
     // Colors
     public static final Color BACKGROUND_SCORE_COLOR = new Color(237, 118, 0);
+    public static final Color BACKGROUND_PRIZE_COLOR = new Color(80, 1, 95);
     public static final Color BACKGROUND_MENU_COLOR = new Color(27,173,204);
     public static final Color BACKGROUND_GAME_BOARD_COLOR = new Color(56,180,194);
     public static final Color BACKGROUND_BUTTON_COLOR = new Color(47,101,117);
-    public static final Color BACKGROUND_COLOR_SNAKE_ONE = new Color(26, 115, 0);
-    public static final Color BACKGROUND_COLOR_SNAKE_TWO = new Color(107, 0, 56);
+    public static final Color BACKGROUND_COLOR_SNAKE_ONE = new Color(38, 123, 12);
+    public static final Color BACKGROUND_COLOR_SNAKE_TWO = new Color(198, 40, 57);
     public static final Color COLOR_SCORE_GAME_OVER_LABEL = new Color(205,233,241);
 
     // Dimensions
