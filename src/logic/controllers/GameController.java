@@ -28,6 +28,7 @@ public class GameController implements GameEventListener {
         this.initSnakes();
         this.createPrize();
         panelGame.startGame();
+        panelGame.printScores(this.snakeOne, this.snakeTwo);
     }
 
     private void initSnakes() {

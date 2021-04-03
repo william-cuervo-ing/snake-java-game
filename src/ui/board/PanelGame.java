@@ -10,6 +10,7 @@ import ui.PanelEndGame;
 import ui.navigation.NavigationListener;
 import javax.swing.JPanel;
 import java.awt.Component;
+import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
@@ -70,12 +71,10 @@ public class PanelGame extends JPanel implements ActionListener, KeyListener {
 
     public void startGameModeOnePlayer() {
         this.controller.startGameModeOnePlayer();
-        this.panelScore.setupScoreLabels();
     }
 
     public void startGameModeTwoPlayers() {
         this.controller.startGameModeTwoPlayers();
-        this.panelScore.setupScoreLabels();
     }
 
     public void printScores(Snake snakeOne, Snake snakeTwo) {

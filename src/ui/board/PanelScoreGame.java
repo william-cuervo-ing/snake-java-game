@@ -2,10 +2,14 @@ package ui.board;
 
 import logic.GameConstants;
 import logic.controllers.GameController;
+import logic.controllers.GameMode;
 
-import javax.swing.*;
+import javax.swing.BorderFactory;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
 import javax.swing.border.Border;
-import java.awt.*;
+import java.awt.Color;
+import java.awt.Font;
 
 /**
  * Panel with Game Score in Game Panel
@@ -13,8 +17,7 @@ import java.awt.*;
 public class PanelScoreGame extends JPanel {
 
     private final Font font = new Font(GameConstants.DEFAULT_FONT_NAME, Font.BOLD, 18);
-    private JLabel labelScorePlayer1;
-    private JLabel labelScorePlayer2;
+    private JLabel scorePlayer1, scorePlayer2;
 
     public PanelScoreGame() {
         this.setLayout(null);
@@ -22,65 +25,38 @@ public class PanelScoreGame extends JPanel {
         this.setBackground(GameConstants.BACKGROUND_SCORE_COLOR);
         Border border = BorderFactory.createLineBorder(GameConstants.BACKGROUND_SCORE_COLOR.darker(), 1);
         this.setBorder(border);
+        setupScoreLabels();
     }
 
     public void setupScoreLabels() {
-        switch (GameController.gameMode) {
-            case ONE_PLAYER:
-                this.initializeOnePlayerMode();
-                break;
-            case TWO_PLAYERS:
-                this.initializeTwoPlayersMode();
-                break;
-        }
+        addLabel(scorePlayer1 = new JLabel());
+        addLabel(scorePlayer2 = new JLabel());
     }
 
-    private void initializeOnePlayerMode(){
-        JLabel jLabelPlayer1 = new JLabel("Score: ");
-        jLabelPlayer1.setBounds(180, 0, 70, 45);
-        jLabelPlayer1.setFont(font);
-        jLabelPlayer1.setForeground(new Color(242, 242, 242));
-        this.add(jLabelPlayer1);
-
-        labelScorePlayer1 = new JLabel("0");
-        labelScorePlayer1.setBounds(240, 0, 100, 45);
-        labelScorePlayer1.setFont(font);
-        labelScorePlayer1.setForeground(new Color(242, 242, 242));
-        this.add(labelScorePlayer1);
-    }
-
-    private void initializeTwoPlayersMode(){
-        JLabel labelPlayer1 = new JLabel("Player 1: ");
-        labelPlayer1.setBounds(40, 0, 100, 45);
-        labelPlayer1.setFont(font);
-        labelPlayer1.setForeground(new Color(242, 242, 242));
-        this.add(labelPlayer1);
-
-        labelScorePlayer1 = new JLabel("0");
-        labelScorePlayer1.setBounds(140, 0, 100, 45);
-        labelScorePlayer1.setFont(font);
-        labelScorePlayer1.setForeground(new Color(242, 242, 242));
-        this.add(labelScorePlayer1);
-
-        JLabel jlabelPlayer2 = new JLabel("Player 2: ");
-        jlabelPlayer2.setBounds(280, 0, 100, 45);
-        jlabelPlayer2.setFont(font);
-        jlabelPlayer2.setForeground(new Color(242, 242, 242));
-        this.add(jlabelPlayer2);
-
-        labelScorePlayer2 = new JLabel("0");
-        labelScorePlayer2.setBounds(380, 0, 100, 45);
-        labelScorePlayer2.setFont(font);
-        labelScorePlayer2.setForeground(new Color(242, 242, 242));
-        this.add(labelScorePlayer2);
+    private void addLabel(JLabel label) {
+        label.setForeground(Color.white);
+        label.setSize(250, 45);
+        label.setFont(font);
+        add(label);
     }
 
     public void setScorePlayer1(int score) {
-        labelScorePlayer1.setText(score + "");
+        if (GameController.gameMode == GameMode.ONE_PLAYER) {
+            scorePlayer2.setVisible(false);
+            scorePlayer1.setText("Score: " + score);
+            scorePlayer1.setLocation(210, 0);
+        } else {
+            scorePlayer1.setText("Player One: " + score);
+            scorePlayer1.setLocation(40, 0);
+        }
     }
 
     public void setScorePlayer2(int score) {
-        labelScorePlayer2.setText(score + "");
+        if (GameController.gameMode == GameMode.TWO_PLAYERS) {
+            scorePlayer2.setText("Player Two: " + score);
+            scorePlayer2.setLocation(300, 0);
+            scorePlayer2.setVisible(true);
+        }
     }
 
 }
