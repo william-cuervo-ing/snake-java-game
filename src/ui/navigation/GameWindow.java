@@ -10,7 +10,7 @@ import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class GameWindow extends JFrame implements ActionListener, NavigationListener {
+public class GameWindow extends JFrame implements ActionListener {
 
     private final PanelMainMenu panelMainMenu;
     private final PanelGame panelGame;
@@ -33,12 +33,10 @@ public class GameWindow extends JFrame implements ActionListener, NavigationList
         });
     }
 
-    @Override
     public void showMainMenu() {
         this.showComponent(panelMainMenu);
     }
 
-    @Override
     public void exit() {
         System.exit(0);
     }

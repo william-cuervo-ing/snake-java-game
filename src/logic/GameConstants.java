@@ -16,7 +16,7 @@ public class GameConstants {
     // Fonts
     public static final String DEFAULT_FONT_NAME = "Helvetica";
     public static final Font FONT_BUTTON = new Font(DEFAULT_FONT_NAME, Font.BOLD, 20);
-    public static final Font FONT_SCORE_GAME_OVER = new Font(DEFAULT_FONT_NAME, Font.BOLD, 34);
+    public static final Font FONT_SCORE_GAME_OVER = new Font(DEFAULT_FONT_NAME, Font.BOLD, 30);
 
     // Colors
     public static final Color BACKGROUND_SCORE_COLOR = new Color(237, 118, 0);

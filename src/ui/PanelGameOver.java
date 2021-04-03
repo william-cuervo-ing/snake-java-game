@@ -10,11 +10,11 @@ import java.awt.event.ActionListener;
 
 import javax.swing.*;
 
-public class PanelEndGame extends JPanel {
+public class PanelGameOver extends JPanel {
 
     private JLabel labelScorePlayer1, labelScorePlayer2;
 
-    public PanelEndGame(ActionListener listener) {
+    public PanelGameOver(ActionListener listener) {
         setLayout(null);
         setBounds(GameConstants.FULL_SCREEN_RECTANGLE);
         setBackground(GameConstants.BACKGROUND_END_GAME);
@@ -54,12 +54,12 @@ public class PanelEndGame extends JPanel {
 
     public void setScorePlayer1(int score) {
         String prefix = GameController.gameMode == GameMode.ONE_PLAYER ? "Score: " : "Score Player 1: ";
-        labelScorePlayer1.setText(prefix + score);
-        labelScorePlayer2.setVisible(GameController.gameMode == GameMode.ONE_PLAYER);
+        labelScorePlayer1.setText(prefix + score + " points.");
+        labelScorePlayer2.setVisible(GameController.gameMode == GameMode.TWO_PLAYERS);
     }
 
     public void setScorePlayer2(int scorePlayer1, int scorePlayer2) {
-        this.setScorePlayer1(scorePlayer1);
-        labelScorePlayer2.setText("Score Player 2: " + scorePlayer2);
+        setScorePlayer1(scorePlayer1);
+        labelScorePlayer2.setText("Score Player 2: " + scorePlayer2 + " points.");
     }
 }

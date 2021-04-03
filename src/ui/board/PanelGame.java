@@ -6,11 +6,11 @@ import logic.controllers.GameController;
 import logic.controllers.GameMode;
 import logic.models.Prize;
 import logic.models.Snake;
-import ui.PanelEndGame;
-import ui.navigation.NavigationListener;
+import ui.PanelGameOver;
+import ui.navigation.GameWindow;
+
 import javax.swing.JPanel;
 import java.awt.Component;
-import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
@@ -18,38 +18,38 @@ import java.awt.event.KeyListener;
 
 public class PanelGame extends JPanel implements ActionListener, KeyListener {
 
-    private PanelEndGame panelEndGame;
+    private PanelGameOver panelGameOver;
     private PanelPauseMenu panelPauseMenu;
 
     private PanelScoreGame panelScore;
     private panelGameBoard panelGameBoard;
 
     private final GameController controller;
-    private final NavigationListener navigationListener;
+    private final GameWindow gameWindow;
 
-    public PanelGame(NavigationListener navigationListener) {
-        this.navigationListener = navigationListener;
+    public PanelGame(GameWindow gameWindow) {
+        this.gameWindow = gameWindow;
         this.controller = new GameController(this);
         setLayout(null);
         setBounds(GameConstants.FULL_SCREEN_RECTANGLE);
-        init(this);
         addKeyListener(this);
         setFocusable(true);
+        init();
         requestFocusInWindow();
     }
 
-    private void init(ActionListener listener) {
+    private void init() {
         panelGameBoard = new panelGameBoard(controller);
         add(panelGameBoard);
 
         panelScore = new PanelScoreGame();
         add(panelScore);
 
-        panelPauseMenu = new PanelPauseMenu(listener);
+        panelPauseMenu = new PanelPauseMenu(this);
         add(panelPauseMenu);
 
-        panelEndGame = new PanelEndGame(listener);
-        add(panelEndGame);
+        panelGameOver = new PanelGameOver(this);
+        add(panelGameOver);
     }
 
     @Override
@@ -58,13 +58,13 @@ public class PanelGame extends JPanel implements ActionListener, KeyListener {
         switch (action) {
             case GameConstants.ACTION_COMMAND_MAIN_MENU:
                 controller.finalizeGame();
-                navigationListener.showMainMenu();
+                gameWindow.showMainMenu();
                 break;
             case GameConstants.ACTION_COMMAND_RESUME_GAME:
                 resume();
                 break;
             case GameConstants.ACTION_COMMAND_EXIT:
-                navigationListener.exit();
+                gameWindow.exit();
                 break;
         }
     }
@@ -103,11 +103,11 @@ public class PanelGame extends JPanel implements ActionListener, KeyListener {
     }
 
     public void showGameOver(Snake snakeOne, Snake snakeTwo) {
-        panelEndGame.setScorePlayer1(snakeOne.getScore());
+        panelGameOver.setScorePlayer1(snakeOne.getScore());
         if (GameController.gameMode == GameMode.TWO_PLAYERS) {
-            panelEndGame.setScorePlayer1(snakeTwo.getScore());
+            panelGameOver.setScorePlayer2(snakeOne.getScore(), snakeTwo.getScore());
         }
-        showComponent(panelEndGame);
+        showComponent(panelGameOver);
         panelGameBoard.terminate();
     }
 
