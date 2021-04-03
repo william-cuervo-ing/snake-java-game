@@ -5,8 +5,10 @@ import logic.GameConstants;
 import logic.models.Point;
 import logic.models.Snake;
 import ui.board.PanelGame;
-
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Random;
 
 public class GameController implements GameEventListener {
 
