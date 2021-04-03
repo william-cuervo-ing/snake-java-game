@@ -9,8 +9,8 @@ import java.util.List;
 
 public class Snake extends Thread {
 
-    private Vertabra auxPreviosPositionVertabra;
-    private final List<Vertabra> body;
+    private Point auxPreviosPositionVertabra;
+    private final List<Point> body;
     private final GameEventListener listener;
 
     private boolean alive;
@@ -34,7 +34,7 @@ public class Snake extends Thread {
         direction = DirectionSnakeEnum.RIGHT;
         lastDirection = direction;
         for (int i = 0; i < GameConstants.INITIAL_SNAKE_VERTABRAS_SIZE; i++) {
-            body.add(new Vertabra(x, y));
+            body.add(new Point(x, y));
             x--;
         }
     }
@@ -66,7 +66,7 @@ public class Snake extends Thread {
     }
 
     private void moveHead() {
-        auxPreviosPositionVertabra = new Vertabra(body.get(0).getX(), body.get(0).getY());
+        auxPreviosPositionVertabra = new Point(body.get(0).getX(), body.get(0).getY());
         switch (direction) {
             case LEFT:
                 if (!lastDirection.equals(DirectionSnakeEnum.RIGHT))
@@ -174,16 +174,15 @@ public class Snake extends Thread {
     }
 
     public void grow() {
-        Vertabra lastVertabra;
-        // TODO: Maybe should use vertabrasToGrow vertabrasToGrow += vertabrasToGrow
+        Point lastVertabra;
         for (int i = 0; i < vertabrasToGrow; i++) {
             lastVertabra = body.get(body.size() - 1);
-            body.add(new Vertabra(lastVertabra.getX(), lastVertabra.getY()));
+            body.add(new Point(lastVertabra.getX(), lastVertabra.getY()));
         }
         growing = true;
     }
 
-    public List<Vertabra> getBody() {
+    public List<Point> getBody() {
         return body;
     }
 

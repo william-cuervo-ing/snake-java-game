@@ -4,12 +4,14 @@ import logic.GameConstants;
 import logic.controllers.GameController;
 import logic.controllers.GameEventListener;
 import logic.controllers.GameMode;
-import logic.models.Prize;
+import logic.models.Point;
 import logic.models.Snake;
-import logic.models.Vertabra;
 
-import javax.swing.*;
-import java.awt.*;
+import javax.swing.JPanel;
+import java.awt.Color;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.RenderingHints;
 
 public class panelGameBoard extends JPanel implements Runnable {
 
@@ -18,7 +20,7 @@ public class panelGameBoard extends JPanel implements Runnable {
     private Snake snakeTwo;
     private boolean running;
     private boolean paused;
-    private Prize prize;
+    private Point prize;
 
     public panelGameBoard(GameEventListener gameEventListener) {
         this.gameEventListener = gameEventListener;
@@ -45,7 +47,7 @@ public class panelGameBoard extends JPanel implements Runnable {
         int innerWidth = 1;
         if (snake != null) {
             boolean isHead = true;
-            for (Vertabra vertabra : snake.getBody()) {
+            for (Point vertabra : snake.getBody()) {
                 g.setColor(color);
                 g.fillRect(vertabra.getX() * GameConstants.VERTABRA_SIZE, vertabra.getY() * GameConstants.VERTABRA_SIZE, GameConstants.VERTABRA_SIZE, GameConstants.VERTABRA_SIZE);
                 if(isHead){
@@ -110,27 +112,16 @@ public class panelGameBoard extends JPanel implements Runnable {
         }
     }
 
-    public Snake getSnakeOne() {
-        return snakeOne;
-    }
-
     public void setSnakeOne(Snake snakeOne) {
         this.snakeOne = snakeOne;
     }
 
-    public Snake getSnakeTwo() {
-        return snakeTwo;
-    }
 
     public void setSnakeTwo(Snake snakeTwo) {
         this.snakeTwo = snakeTwo;
     }
 
-    public Prize getPrize() {
-        return prize;
-    }
-
-    public void setPrize(Prize prize) {
+    public void setPrize(Point prize) {
         this.prize = prize;
     }
 }

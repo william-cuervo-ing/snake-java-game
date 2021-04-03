@@ -4,7 +4,7 @@ import logic.DirectionSnakeEnum;
 import logic.GameConstants;
 import logic.controllers.GameController;
 import logic.controllers.GameMode;
-import logic.models.Prize;
+import logic.models.Point;
 import logic.models.Snake;
 import ui.PanelGameOver;
 import ui.navigation.GameWindow;
@@ -170,7 +170,7 @@ public class PanelGame extends JPanel implements ActionListener, KeyListener {
         panelGameBoard.setSnakeTwo(snakeTwo);
     }
 
-    public void setPrize(Prize prize) {
+    public void setPrize(Point prize) {
         panelGameBoard.setPrize(prize);
     }
 

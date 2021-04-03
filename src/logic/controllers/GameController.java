@@ -2,9 +2,8 @@ package logic.controllers;
 
 import logic.DirectionSnakeEnum;
 import logic.GameConstants;
-import logic.models.Prize;
+import logic.models.Point;
 import logic.models.Snake;
-import logic.models.Vertabra;
 import ui.board.PanelGame;
 
 import java.util.*;
@@ -48,22 +47,22 @@ public class GameController implements GameEventListener {
             Arrays.fill(aux, false);
             boardPositions[i] = aux;
         }
-        List<Vertabra> vertabras = gameMode == GameMode.ONE_PLAYER ? this.snakeOne.getBody() :
-            new ArrayList<Vertabra>() {{
+        List<Point> vertabras = gameMode == GameMode.ONE_PLAYER ? this.snakeOne.getBody() :
+            new ArrayList<Point>() {{
                 addAll(snakeOne.getBody());
                 addAll(snakeTwo.getBody());
             }};
         vertabras.forEach((v) -> boardPositions[v.getX()][v.getY()] = true);
-        List<Vertabra> posicionesLibres = new ArrayList<>();
+        List<Point> posicionesLibres = new ArrayList<>();
         for (int i = 0; i < boardPositions.length; i++) {
             for (int j = 0; j < boardPositions[i].length; j++) {
                 if (!boardPositions[i][j]) {
-                    posicionesLibres.add(new Vertabra(i, j));
+                    posicionesLibres.add(new Point(i, j));
                 }
             }
         }
-        Vertabra randomPosition = posicionesLibres.get(random.nextInt(posicionesLibres.size()));
-        this.panelGame.setPrize(new Prize(randomPosition.getX(), randomPosition.getY()));
+        Point randomPosition = posicionesLibres.get(random.nextInt(posicionesLibres.size()));
+        this.panelGame.setPrize(new Point(randomPosition.getX(), randomPosition.getY()));
     }
 
     @Override
