@@ -1,6 +1,6 @@
 package logic;
 
-public enum DirectionSnakeEnum {
+public enum SnakeDirectionEnum {
     UP,
     DOWN,
     LEFT,

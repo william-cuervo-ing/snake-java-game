@@ -1,0 +1,11 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="snake-game:jar">
+    <output-path>$PROJECT_DIR$/out/</output-path>
+    <root id="archive" name="snake-java-game.jar">
+      <element id="directory" name="META-INF">
+        <element id="file-copy" path="$APPLICATION_HOME_DIR$/jbr/bin/META-INF/MANIFEST.MF" />
+      </element>
+      <element id="module-output" name="snake-java-game" />
+    </root>
+  </artifact>
+</component>

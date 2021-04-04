@@ -1,6 +1,6 @@
 package logic.controllers;
 
-import logic.DirectionSnakeEnum;
+import logic.SnakeDirectionEnum;
 import logic.models.Snake;
 
 public interface GameEventListener {
@@ -11,7 +11,7 @@ public interface GameEventListener {
 
     void dieSnake(Snake snake);
 
-    void setDirectionSnakeOne(DirectionSnakeEnum direction);
+    void setDirectionSnakeOne(SnakeDirectionEnum direction);
 
-    void setDirectionSnakeTwo(DirectionSnakeEnum direction);
+    void setDirectionSnakeTwo(SnakeDirectionEnum direction);
 }

@@ -2,7 +2,7 @@ package ui.board;
 
 import logic.GameConstants;
 import logic.controllers.GameController;
-import logic.controllers.GameMode;
+import logic.GameMode;
 
 import javax.swing.BorderFactory;
 import javax.swing.JLabel;

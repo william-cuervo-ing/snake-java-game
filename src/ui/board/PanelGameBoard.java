@@ -3,7 +3,7 @@ package ui.board;
 import logic.GameConstants;
 import logic.controllers.GameController;
 import logic.controllers.GameEventListener;
-import logic.controllers.GameMode;
+import logic.GameMode;
 import logic.models.Point;
 import logic.models.Snake;
 
@@ -13,7 +13,7 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
 
-public class panelGameBoard extends JPanel implements Runnable {
+public class PanelGameBoard extends JPanel implements Runnable {
 
     private final GameEventListener gameEventListener;
     private Snake snakeOne;
@@ -22,7 +22,7 @@ public class panelGameBoard extends JPanel implements Runnable {
     private boolean paused;
     private Point prize;
 
-    public panelGameBoard(GameEventListener gameEventListener) {
+    public PanelGameBoard(GameEventListener gameEventListener) {
         this.gameEventListener = gameEventListener;
         this.setLayout(null);
         this.setBounds(0, GameConstants.SCORE_BOARD_HEIGHT, GameConstants.GAME_BOARD_SIZE, GameConstants.GAME_BOARD_SIZE);

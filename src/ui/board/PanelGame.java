@@ -1,12 +1,11 @@
 package ui.board;
 
-import logic.DirectionSnakeEnum;
+import logic.SnakeDirectionEnum;
 import logic.GameConstants;
 import logic.controllers.GameController;
-import logic.controllers.GameMode;
+import logic.GameMode;
 import logic.models.Point;
 import logic.models.Snake;
-import ui.PanelGameOver;
 import ui.navigation.GameWindow;
 
 import javax.swing.JPanel;
@@ -22,7 +21,7 @@ public class PanelGame extends JPanel implements ActionListener, KeyListener {
     private PanelPauseMenu panelPauseMenu;
 
     private PanelScoreGame panelScore;
-    private panelGameBoard panelGameBoard;
+    private PanelGameBoard panelGameBoard;
 
     private final GameController controller;
     private final GameWindow gameWindow;
@@ -39,7 +38,7 @@ public class PanelGame extends JPanel implements ActionListener, KeyListener {
     }
 
     private void init() {
-        panelGameBoard = new panelGameBoard(controller);
+        panelGameBoard = new PanelGameBoard(controller);
         add(panelGameBoard);
 
         panelScore = new PanelScoreGame();
@@ -115,16 +114,16 @@ public class PanelGame extends JPanel implements ActionListener, KeyListener {
         int key = e.getExtendedKeyCode();
         switch (key) {
             case KeyEvent.VK_LEFT:
-                this.controller.setDirectionSnakeOne(DirectionSnakeEnum.LEFT);
+                this.controller.setDirectionSnakeOne(SnakeDirectionEnum.LEFT);
                 break;
             case KeyEvent.VK_RIGHT:
-                this.controller.setDirectionSnakeOne(DirectionSnakeEnum.RIGHT);
+                this.controller.setDirectionSnakeOne(SnakeDirectionEnum.RIGHT);
                 break;
             case KeyEvent.VK_UP:
-                this.controller.setDirectionSnakeOne(DirectionSnakeEnum.UP);
+                this.controller.setDirectionSnakeOne(SnakeDirectionEnum.UP);
                 break;
             case KeyEvent.VK_DOWN:
-                this.controller.setDirectionSnakeOne(DirectionSnakeEnum.DOWN);
+                this.controller.setDirectionSnakeOne(SnakeDirectionEnum.DOWN);
                 break;
             case KeyEvent.VK_ESCAPE:
                 tooglePause();
@@ -133,16 +132,16 @@ public class PanelGame extends JPanel implements ActionListener, KeyListener {
         if (GameController.gameMode == GameMode.TWO_PLAYERS) {
             switch (key) {
                 case KeyEvent.VK_A:
-                    this.controller.setDirectionSnakeTwo(DirectionSnakeEnum.LEFT);
+                    this.controller.setDirectionSnakeTwo(SnakeDirectionEnum.LEFT);
                     break;
                 case KeyEvent.VK_D:
-                    this.controller.setDirectionSnakeTwo(DirectionSnakeEnum.RIGHT);
+                    this.controller.setDirectionSnakeTwo(SnakeDirectionEnum.RIGHT);
                     break;
                 case KeyEvent.VK_W:
-                    this.controller.setDirectionSnakeTwo(DirectionSnakeEnum.UP);
+                    this.controller.setDirectionSnakeTwo(SnakeDirectionEnum.UP);
                     break;
                 case KeyEvent.VK_S:
-                    this.controller.setDirectionSnakeTwo(DirectionSnakeEnum.DOWN);
+                    this.controller.setDirectionSnakeTwo(SnakeDirectionEnum.DOWN);
                     break;
             }
         }

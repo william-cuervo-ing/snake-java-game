@@ -1,7 +1,8 @@
 package logic.controllers;
 
-import logic.DirectionSnakeEnum;
+import logic.SnakeDirectionEnum;
 import logic.GameConstants;
+import logic.GameMode;
 import logic.models.Point;
 import logic.models.Snake;
 import ui.board.PanelGame;
@@ -100,12 +101,12 @@ public class GameController implements GameEventListener {
     }
 
     @Override
-    public void setDirectionSnakeOne(DirectionSnakeEnum direction) {
+    public void setDirectionSnakeOne(SnakeDirectionEnum direction) {
         this.snakeOne.setDirection(direction);
     }
 
     @Override
-    public void setDirectionSnakeTwo(DirectionSnakeEnum direction) {
+    public void setDirectionSnakeTwo(SnakeDirectionEnum direction) {
         this.snakeTwo.setDirection(direction);
     }
 

@@ -1,6 +1,6 @@
 package logic.models;
 
-import logic.DirectionSnakeEnum;
+import logic.SnakeDirectionEnum;
 import logic.GameConstants;
 import logic.controllers.GameEventListener;
 
@@ -18,8 +18,8 @@ public class Snake extends Thread {
     private boolean growing;
     private int score = 0;
 
-    private DirectionSnakeEnum direction;
-    private DirectionSnakeEnum lastDirection;
+    private SnakeDirectionEnum direction;
+    private SnakeDirectionEnum lastDirection;
     private int vertabrasToGrow = GameConstants.VERTABRAS_TO_GROW;
 
     public Snake(GameEventListener listener) {
@@ -31,7 +31,7 @@ public class Snake extends Thread {
 
         int x = GameConstants.INITIAL_SNAKE_VERTABRAS_SIZE * 2;
         int y = (int)(Math.random() * (GameConstants.POSTISIONS_AVAILABLE_PER_ROW - 1));
-        direction = DirectionSnakeEnum.RIGHT;
+        direction = SnakeDirectionEnum.RIGHT;
         lastDirection = direction;
         for (int i = 0; i < GameConstants.INITIAL_SNAKE_VERTABRAS_SIZE; i++) {
             body.add(new Point(x, y));
@@ -69,25 +69,25 @@ public class Snake extends Thread {
         auxPreviosPositionVertabra = new Point(body.get(0).getX(), body.get(0).getY());
         switch (direction) {
             case LEFT:
-                if (!lastDirection.equals(DirectionSnakeEnum.RIGHT))
+                if (!lastDirection.equals(SnakeDirectionEnum.RIGHT))
                     moveLeft();
                 else
                     moveRight();
                 break;
             case RIGHT:
-                if (!lastDirection.equals(DirectionSnakeEnum.LEFT))
+                if (!lastDirection.equals(SnakeDirectionEnum.LEFT))
                     moveRight();
                 else
                     moveLeft();
                 break;
             case UP:
-                if (!lastDirection.equals(DirectionSnakeEnum.DOWN))
+                if (!lastDirection.equals(SnakeDirectionEnum.DOWN))
                     moveUp();
                 else
                     moveDown();
                 break;
             case DOWN:
-                if (!lastDirection.equals(DirectionSnakeEnum.UP))
+                if (!lastDirection.equals(SnakeDirectionEnum.UP))
                     moveDown();
                 else
                     moveUp();
@@ -145,31 +145,31 @@ public class Snake extends Thread {
         body.get(0).setX(body.get(0).getX() - 1);
         if (body.get(0).getX() < 0)
             body.get(0).setX(GameConstants.POSTISIONS_AVAILABLE_PER_ROW - 1);
-        lastDirection = DirectionSnakeEnum.LEFT;
+        lastDirection = SnakeDirectionEnum.LEFT;
     }
 
     public void moveRight() {
         body.get(0).setX(body.get(0).getX() + 1);
         if (body.get(0).getX() > GameConstants.POSTISIONS_AVAILABLE_PER_ROW - 1)
             body.get(0).setX(0);
-        lastDirection = DirectionSnakeEnum.RIGHT;
+        lastDirection = SnakeDirectionEnum.RIGHT;
     }
 
     public void moveUp() {
         body.get(0).setY(body.get(0).getY() - 1);
         if (body.get(0).getY() < 0)
             body.get(0).setY(GameConstants.POSTISIONS_AVAILABLE_PER_ROW - 1);
-        lastDirection = DirectionSnakeEnum.UP;
+        lastDirection = SnakeDirectionEnum.UP;
     }
 
     public void moveDown() {
         body.get(0).setY(body.get(0).getY() + 1);
         if (body.get(0).getY() > GameConstants.POSTISIONS_AVAILABLE_PER_ROW - 1)
             body.get(0).setY(0);
-        lastDirection = DirectionSnakeEnum.DOWN;
+        lastDirection = SnakeDirectionEnum.DOWN;
     }
 
-    public void setDirection(DirectionSnakeEnum direction) {
+    public void setDirection(SnakeDirectionEnum direction) {
         this.direction = direction;
     }
 
