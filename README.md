@@ -6,7 +6,7 @@ The Classic Snake Game, but... **Multiplayer!**. 2 players can play simultaneous
 
 ## Preview
 
-- Main Menu<br />
+- Main Menu <br />
   ![Main Menu screenshoot](https://github.com/william-cuervo-ing/snake-java-game/blob/main/screenshoots/main_menu.png?raw=true)
   <br />
 - One Player Mode<br />
