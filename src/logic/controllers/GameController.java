@@ -2,7 +2,7 @@ package logic.controllers;
 
 import logic.SnakeDirectionEnum;
 import logic.GameConstants;
-import logic.GameMode;
+import logic.GameModeEnum;
 import logic.models.Point;
 import logic.models.Snake;
 import ui.board.PanelGame;
@@ -13,7 +13,7 @@ import java.util.Random;
 
 public class GameController implements GameEventListener {
 
-    public static GameMode gameMode = GameMode.ONE_PLAYER;
+    public static GameModeEnum gameMode = GameModeEnum.ONE_PLAYER;
     final boolean[][] boardPositions = new boolean[GameConstants.POSTISIONS_AVAILABLE_PER_ROW][GameConstants.POSTISIONS_AVAILABLE_PER_ROW];
 
     private Snake snakeOne;
@@ -35,10 +35,10 @@ public class GameController implements GameEventListener {
 
     private void initSnakes() {
         snakeOne = new Snake(this);
-        snakeTwo = GameController.gameMode == GameMode.TWO_PLAYERS ?
+        snakeTwo = GameController.gameMode == GameModeEnum.TWO_PLAYERS ?
             new Snake(this) : null;
         snakeOne.start();
-        if (GameController.gameMode == GameMode.TWO_PLAYERS) {
+        if (GameController.gameMode == GameModeEnum.TWO_PLAYERS) {
             snakeTwo.start();
         }
         this.panelGame.setSnakes(this.snakeOne, this.snakeTwo);
@@ -50,7 +50,7 @@ public class GameController implements GameEventListener {
             Arrays.fill(aux, false);
             boardPositions[i] = aux;
         }
-        List<Point> vertabras = gameMode == GameMode.ONE_PLAYER ? this.snakeOne.getBody() :
+        List<Point> vertabras = gameMode == GameModeEnum.ONE_PLAYER ? this.snakeOne.getBody() :
             new ArrayList<Point>() {{
                 addAll(snakeOne.getBody());
                 addAll(snakeTwo.getBody());
@@ -91,12 +91,12 @@ public class GameController implements GameEventListener {
     }
 
     public void startGameModeOnePlayer() {
-        GameController.gameMode = GameMode.ONE_PLAYER;
+        GameController.gameMode = GameModeEnum.ONE_PLAYER;
         startGame();
     }
 
     public void startGameModeTwoPlayers() {
-        GameController.gameMode = GameMode.TWO_PLAYERS;
+        GameController.gameMode = GameModeEnum.TWO_PLAYERS;
         startGame();
     }
 
@@ -112,7 +112,7 @@ public class GameController implements GameEventListener {
 
     public void pause() {
         snakeOne.pause();
-        if (gameMode == GameMode.TWO_PLAYERS) {
+        if (gameMode == GameModeEnum.TWO_PLAYERS) {
             snakeTwo.pause();
         }
         this.isPaused = true;
@@ -120,7 +120,7 @@ public class GameController implements GameEventListener {
 
     public void resume() {
         snakeOne.resumeSnake();
-        if (gameMode == GameMode.TWO_PLAYERS) {
+        if (gameMode == GameModeEnum.TWO_PLAYERS) {
             snakeTwo.resumeSnake();
         }
         this.isPaused = false;
@@ -128,7 +128,7 @@ public class GameController implements GameEventListener {
 
     public void finalizeGame() {
         snakeOne.die();
-        if (gameMode == GameMode.TWO_PLAYERS) {
+        if (gameMode == GameModeEnum.TWO_PLAYERS) {
             snakeTwo.die();
         }
     }

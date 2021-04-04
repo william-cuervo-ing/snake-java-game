@@ -1,6 +1,6 @@
 package logic;
 
-public enum GameMode {
+public enum GameModeEnum {
     ONE_PLAYER,
     TWO_PLAYERS
 }

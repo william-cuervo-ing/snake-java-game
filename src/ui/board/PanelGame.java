@@ -3,7 +3,7 @@ package ui.board;
 import logic.SnakeDirectionEnum;
 import logic.GameConstants;
 import logic.controllers.GameController;
-import logic.GameMode;
+import logic.GameModeEnum;
 import logic.models.Point;
 import logic.models.Snake;
 import ui.navigation.GameWindow;
@@ -78,7 +78,7 @@ public class PanelGame extends JPanel implements ActionListener, KeyListener {
 
     public void printScores(Snake snakeOne, Snake snakeTwo) {
         panelScore.setScorePlayer1(snakeOne.getScore());
-        if (GameController.gameMode == GameMode.TWO_PLAYERS) {
+        if (GameController.gameMode == GameModeEnum.TWO_PLAYERS) {
             panelScore.setScorePlayer2(snakeTwo.getScore());
         }
     }
@@ -103,7 +103,7 @@ public class PanelGame extends JPanel implements ActionListener, KeyListener {
 
     public void showGameOver(Snake snakeOne, Snake snakeTwo) {
         panelGameOver.setScorePlayer1(snakeOne.getScore());
-        if (GameController.gameMode == GameMode.TWO_PLAYERS) {
+        if (GameController.gameMode == GameModeEnum.TWO_PLAYERS) {
             panelGameOver.setScorePlayer2(snakeOne.getScore(), snakeTwo.getScore());
         }
         showComponent(panelGameOver);
@@ -129,7 +129,7 @@ public class PanelGame extends JPanel implements ActionListener, KeyListener {
                 tooglePause();
                 break;
         }
-        if (GameController.gameMode == GameMode.TWO_PLAYERS) {
+        if (GameController.gameMode == GameModeEnum.TWO_PLAYERS) {
             switch (key) {
                 case KeyEvent.VK_A:
                     this.controller.setDirectionSnakeTwo(SnakeDirectionEnum.LEFT);

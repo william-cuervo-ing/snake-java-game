@@ -3,7 +3,7 @@ package ui.board;
 import logic.GameConstants;
 import logic.controllers.GameController;
 import logic.controllers.GameEventListener;
-import logic.GameMode;
+import logic.GameModeEnum;
 import logic.models.Point;
 import logic.models.Snake;
 
@@ -37,7 +37,7 @@ public class PanelGameBoard extends JPanel implements Runnable {
         g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 
         paintSnake(g2, snakeOne, GameConstants.BACKGROUND_COLOR_SNAKE_ONE);
-        if (GameController.gameMode == GameMode.TWO_PLAYERS)
+        if (GameController.gameMode == GameModeEnum.TWO_PLAYERS)
             paintSnake(g2, snakeTwo, GameConstants.BACKGROUND_COLOR_SNAKE_TWO);
         paintPrize(g2);
         evaluateIfScored();
@@ -105,7 +105,7 @@ public class PanelGameBoard extends JPanel implements Runnable {
         if ((snakeOne.getBody().get(0).getX() == prize.getX()) && (snakeOne.getBody().get(0).getY() == prize.getY())) {
             gameEventListener.addScorePlayerOne();
         }
-        if (GameController.gameMode == GameMode.TWO_PLAYERS) {
+        if (GameController.gameMode == GameModeEnum.TWO_PLAYERS) {
             if ((snakeTwo.getBody().get(0).getX() == prize.getX()) && (snakeTwo.getBody().get(0).getY() == prize.getY())) {
                 gameEventListener.addScorePlayerTwo();
             }

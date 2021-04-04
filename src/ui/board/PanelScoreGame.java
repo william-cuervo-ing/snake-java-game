@@ -2,7 +2,7 @@ package ui.board;
 
 import logic.GameConstants;
 import logic.controllers.GameController;
-import logic.GameMode;
+import logic.GameModeEnum;
 
 import javax.swing.BorderFactory;
 import javax.swing.JLabel;
@@ -41,7 +41,7 @@ public class PanelScoreGame extends JPanel {
     }
 
     public void setScorePlayer1(int score) {
-        if (GameController.gameMode == GameMode.ONE_PLAYER) {
+        if (GameController.gameMode == GameModeEnum.ONE_PLAYER) {
             scorePlayer2.setVisible(false);
             scorePlayer1.setText("Score: " + score);
             scorePlayer1.setLocation(210, 0);
@@ -52,7 +52,7 @@ public class PanelScoreGame extends JPanel {
     }
 
     public void setScorePlayer2(int score) {
-        if (GameController.gameMode == GameMode.TWO_PLAYERS) {
+        if (GameController.gameMode == GameModeEnum.TWO_PLAYERS) {
             scorePlayer2.setText("Player Two: " + score);
             scorePlayer2.setLocation(300, 0);
             scorePlayer2.setVisible(true);

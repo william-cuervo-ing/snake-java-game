@@ -2,7 +2,7 @@ package ui.board;
 
 import logic.GameConstants;
 import logic.controllers.GameController;
-import logic.GameMode;
+import logic.GameModeEnum;
 import ui.UIUtils;
 
 import javax.swing.JButton;
@@ -56,9 +56,9 @@ public class PanelGameOver extends JPanel {
     }
 
     public void setScorePlayer1(int score) {
-        String prefix = GameController.gameMode == GameMode.ONE_PLAYER ? "Score: " : "Score Player 1: ";
+        String prefix = GameController.gameMode == GameModeEnum.ONE_PLAYER ? "Score: " : "Score Player 1: ";
         labelScorePlayer1.setText(prefix + score + " points.");
-        labelScorePlayer2.setVisible(GameController.gameMode == GameMode.TWO_PLAYERS);
+        labelScorePlayer2.setVisible(GameController.gameMode == GameModeEnum.TWO_PLAYERS);
     }
 
     public void setScorePlayer2(int scorePlayer1, int scorePlayer2) {
