@@ -16,39 +16,32 @@ public class GameWindow extends JFrame implements ActionListener {
     private final PanelGame panelGame;
 
     public GameWindow() {
-        this.setSize(GameConstants.WINDOW_WIDTH, GameConstants.WINDOW_HEIGHT);
-        this.setLayout(null);
-        this.getContentPane().setLayout(null);
-        this.setTitle("Snake Game");
-        this.setLocationRelativeTo(null);
-        this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-        this.setResizable(true);
+        setSize(GameConstants.WINDOW_WIDTH, GameConstants.WINDOW_HEIGHT);
+        setLayout(null);
+        getContentPane().setLayout(null);
+        setTitle("Snake Game");
+        setLocationRelativeTo(null);
+        setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        setResizable(true);
         panelMainMenu = new PanelMainMenu(this);
         panelGame = new PanelGame(this);
-        this.showMainMenu();
-        this.setVisible(true);
+        showMainMenu();
+        setVisible(true);
+        packWindow();
+    }
+
+    public void showMainMenu() {
+        showComponent(panelMainMenu);
+    }
+
+    /**
+     * Force the window to shows the full Size of the contentPane Panel
+     */
+    private void packWindow(){
         SwingUtilities.invokeLater(() -> {
             getContentPane().setPreferredSize(new Dimension(GameConstants.WINDOW_WIDTH, GameConstants.WINDOW_HEIGHT));
             pack();
         });
-    }
-
-    public void showMainMenu() {
-        this.showComponent(panelMainMenu);
-    }
-
-    public void exit() {
-        System.exit(0);
-    }
-
-    private void showComponent(Component component) {
-        for (int i = 0; i < getContentPane().getComponents().length; i++) {
-            getContentPane().getComponents()[i].setVisible(false);
-            getContentPane().remove(i);
-            i = 0;
-        }
-        getContentPane().add(component);
-        component.setVisible(true);
     }
 
     public void actionPerformed(ActionEvent e) {
@@ -76,5 +69,23 @@ public class GameWindow extends JFrame implements ActionListener {
         showComponent(panelGame);
         panelGame.startGameModeTwoPlayers();
         panelGame.requestFocus();
+    }
+
+    /**
+     * Show a component in the view. It hides every panel and make visible only the component passed
+     * @param component component to view
+     */
+    private void showComponent(Component component) {
+        for (int i = 0; i < getContentPane().getComponents().length; i++) {
+            getContentPane().getComponents()[i].setVisible(false);
+            getContentPane().remove(i);
+            i = 0;
+        }
+        getContentPane().add(component);
+        component.setVisible(true);
+    }
+
+    public void exit() {
+        System.exit(0);
     }
 }

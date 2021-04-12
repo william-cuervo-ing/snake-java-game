@@ -116,7 +116,6 @@ public class PanelGameBoard extends JPanel implements Runnable {
         this.snakeOne = snakeOne;
     }
 
-
     public void setSnakeTwo(Snake snakeTwo) {
         this.snakeTwo = snakeTwo;
     }

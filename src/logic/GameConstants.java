@@ -7,10 +7,28 @@ import java.awt.Rectangle;
 public class GameConstants {
 
     // Game
+    /**
+     * Time that snake waits to make the next move
+     */
     public static final short DELAY_SNAKE_MOVE_TIME = 100;
+    /**
+     * Quantity of vertabras that snake has when the game starts.
+     */
     public static final short INITIAL_SNAKE_VERTABRAS_SIZE = 4;
+
+    /**
+     * Vertabras that snake should grow when eats a prize
+     */
     public static final short VERTABRAS_TO_GROW = 5;
+
+    /**
+     * The score increased when Snake eats a prize
+     */
     public static final short SCORE_BY_PRIZE = 10;
+
+    /**
+     * Number of cells used for column or row.
+     */
     public static final short POSTISIONS_AVAILABLE_PER_ROW = 20;
 
     // Fonts

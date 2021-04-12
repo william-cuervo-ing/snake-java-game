@@ -26,6 +26,9 @@ public class GameController implements GameEventListener {
         this.panelGame = panelGame;
     }
 
+    /**
+     * Start the game
+     */
     public void startGame() {
         initSnakes();
         createPrize();
@@ -33,6 +36,9 @@ public class GameController implements GameEventListener {
         panelGame.printScores(this.snakeOne, this.snakeTwo);
     }
 
+    /**
+     * Create the snakes
+     */
     private void initSnakes() {
         snakeOne = new Snake(this);
         snakeTwo = GameController.gameMode == GameModeEnum.TWO_PLAYERS ?
@@ -44,6 +50,9 @@ public class GameController implements GameEventListener {
         this.panelGame.setSnakes(this.snakeOne, this.snakeTwo);
     }
 
+    /**
+     * Creates a prize in the game board
+     */
     private void createPrize() {
         for (int i = 0; i < boardPositions.length; i++) {
             boolean[] aux = new boolean[GameConstants.POSTISIONS_AVAILABLE_PER_ROW];
@@ -90,16 +99,6 @@ public class GameController implements GameEventListener {
         panelGame.showGameOver(snakeOne, snakeTwo);
     }
 
-    public void startGameModeOnePlayer() {
-        GameController.gameMode = GameModeEnum.ONE_PLAYER;
-        startGame();
-    }
-
-    public void startGameModeTwoPlayers() {
-        GameController.gameMode = GameModeEnum.TWO_PLAYERS;
-        startGame();
-    }
-
     @Override
     public void setDirectionSnakeOne(SnakeDirectionEnum direction) {
         this.snakeOne.setDirection(direction);
@@ -108,6 +107,16 @@ public class GameController implements GameEventListener {
     @Override
     public void setDirectionSnakeTwo(SnakeDirectionEnum direction) {
         this.snakeTwo.setDirection(direction);
+    }
+
+    public void startGameModeOnePlayer() {
+        GameController.gameMode = GameModeEnum.ONE_PLAYER;
+        startGame();
+    }
+
+    public void startGameModeTwoPlayers() {
+        GameController.gameMode = GameModeEnum.TWO_PLAYERS;
+        startGame();
     }
 
     public void pause() {
