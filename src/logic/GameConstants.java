@@ -6,7 +6,7 @@ import java.awt.Rectangle;
 
 public class GameConstants {
 
-    // SNAKES
+    // Game
     public static final short DELAY_SNAKE_MOVE_TIME = 100;
     public static final short INITIAL_SNAKE_VERTABRAS_SIZE = 4;
     public static final short VERTABRAS_TO_GROW = 5;

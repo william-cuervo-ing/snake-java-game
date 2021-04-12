@@ -18,8 +18,8 @@ public class GameController implements GameEventListener {
 
     private Snake snakeOne;
     private Snake snakeTwo;
-    private final PanelGame panelGame;
     private boolean isPaused;
+    private final PanelGame panelGame;
     private final Random random = new Random();
 
     public GameController(PanelGame panelGame) {
@@ -27,8 +27,8 @@ public class GameController implements GameEventListener {
     }
 
     public void startGame() {
-        this.initSnakes();
-        this.createPrize();
+        initSnakes();
+        createPrize();
         panelGame.startGame();
         panelGame.printScores(this.snakeOne, this.snakeTwo);
     }

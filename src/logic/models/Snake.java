@@ -9,18 +9,53 @@ import java.util.List;
 
 public class Snake extends Thread {
 
-    private Point auxPreviosPositionVertabra;
+    /**
+     * The Snake direction
+     */
+    private SnakeDirectionEnum direction;
+    /**
+     * Describes if the Snake is alive or not
+     */
+    private boolean alive;
+
+    /**
+     * Defines if the Snake is in pause state
+     */
+    private boolean paused;
+
+    /**
+     * Defines if the Snake is growing
+     */
+    private boolean growing;
+
+    /**
+     * Snake Score
+     */
+    private int score = 0;
+    /**
+     * Each Snake Vertebra
+     */
     private final List<Point> body;
+
+    /**
+     * Last HEAD position
+     */
+    private Point previousHeadPosition;
+
+    /**
+     * Listens if the Snake has die.
+     */
     private final GameEventListener listener;
 
-    private boolean alive;
-    private boolean paused;
-    private boolean growing;
-    private int score = 0;
-
-    private SnakeDirectionEnum direction;
-    private SnakeDirectionEnum lastDirection;
+    /**
+     * Previouse Snake Direction
+     */
+    private SnakeDirectionEnum previousDirection;
+    /**
+     * Number of vertebras that the Snake should grow
+     */
     private int vertabrasToGrow = GameConstants.VERTABRAS_TO_GROW;
+
 
     public Snake(GameEventListener listener) {
         this.listener = listener;
@@ -32,13 +67,14 @@ public class Snake extends Thread {
         int x = GameConstants.INITIAL_SNAKE_VERTABRAS_SIZE * 2;
         int y = (int)(Math.random() * (GameConstants.POSTISIONS_AVAILABLE_PER_ROW - 1));
         direction = SnakeDirectionEnum.RIGHT;
-        lastDirection = direction;
+        previousDirection = direction;
         for (int i = 0; i < GameConstants.INITIAL_SNAKE_VERTABRAS_SIZE; i++) {
             body.add(new Point(x, y));
             x--;
         }
     }
 
+    @Override
     public void run() {
         while (alive) {
             move();
@@ -59,35 +95,35 @@ public class Snake extends Thread {
         }
     }
 
-    public void move() {
+    private void move() {
         moveHead();
         moveBody();
         evaluateIfShouldDie();
     }
 
     private void moveHead() {
-        auxPreviosPositionVertabra = new Point(body.get(0).getX(), body.get(0).getY());
+        previousHeadPosition = new Point(body.get(0).getX(), body.get(0).getY());
         switch (direction) {
             case LEFT:
-                if (!lastDirection.equals(SnakeDirectionEnum.RIGHT))
+                if (!previousDirection.equals(SnakeDirectionEnum.RIGHT))
                     moveLeft();
                 else
                     moveRight();
                 break;
             case RIGHT:
-                if (!lastDirection.equals(SnakeDirectionEnum.LEFT))
+                if (!previousDirection.equals(SnakeDirectionEnum.LEFT))
                     moveRight();
                 else
                     moveLeft();
                 break;
             case UP:
-                if (!lastDirection.equals(SnakeDirectionEnum.DOWN))
+                if (!previousDirection.equals(SnakeDirectionEnum.DOWN))
                     moveUp();
                 else
                     moveDown();
                 break;
             case DOWN:
-                if (!lastDirection.equals(SnakeDirectionEnum.UP))
+                if (!previousDirection.equals(SnakeDirectionEnum.UP))
                     moveDown();
                 else
                     moveUp();
@@ -95,8 +131,36 @@ public class Snake extends Thread {
         }
     }
 
+    public void moveLeft() {
+        body.get(0).setX(body.get(0).getX() - 1);
+        if (body.get(0).getX() < 0)
+            body.get(0).setX(GameConstants.POSTISIONS_AVAILABLE_PER_ROW - 1);
+        previousDirection = SnakeDirectionEnum.LEFT;
+    }
+
+    public void moveRight() {
+        body.get(0).setX(body.get(0).getX() + 1);
+        if (body.get(0).getX() > GameConstants.POSTISIONS_AVAILABLE_PER_ROW - 1)
+            body.get(0).setX(0);
+        previousDirection = SnakeDirectionEnum.RIGHT;
+    }
+
+    public void moveUp() {
+        body.get(0).setY(body.get(0).getY() - 1);
+        if (body.get(0).getY() < 0)
+            body.get(0).setY(GameConstants.POSTISIONS_AVAILABLE_PER_ROW - 1);
+        previousDirection = SnakeDirectionEnum.UP;
+    }
+
+    public void moveDown() {
+        body.get(0).setY(body.get(0).getY() + 1);
+        if (body.get(0).getY() > GameConstants.POSTISIONS_AVAILABLE_PER_ROW - 1)
+            body.get(0).setY(0);
+        previousDirection = SnakeDirectionEnum.DOWN;
+    }
+
     private void moveBody() {
-        int x = auxPreviosPositionVertabra.getX(), y = auxPreviosPositionVertabra.getY(), xAux, yAux;
+        int x = previousHeadPosition.getX(), y = previousHeadPosition.getY(), xAux, yAux;
         int vertabrasToMove = growing ? (body.size() - vertabrasToGrow) : body.size();
         for (int i = 1; i < vertabrasToMove; i++) {
             xAux = body.get(i).getX();
@@ -139,34 +203,6 @@ public class Snake extends Thread {
     public synchronized void resumeSnake() {
         this.paused = false;
         this.notify();
-    }
-
-    public void moveLeft() {
-        body.get(0).setX(body.get(0).getX() - 1);
-        if (body.get(0).getX() < 0)
-            body.get(0).setX(GameConstants.POSTISIONS_AVAILABLE_PER_ROW - 1);
-        lastDirection = SnakeDirectionEnum.LEFT;
-    }
-
-    public void moveRight() {
-        body.get(0).setX(body.get(0).getX() + 1);
-        if (body.get(0).getX() > GameConstants.POSTISIONS_AVAILABLE_PER_ROW - 1)
-            body.get(0).setX(0);
-        lastDirection = SnakeDirectionEnum.RIGHT;
-    }
-
-    public void moveUp() {
-        body.get(0).setY(body.get(0).getY() - 1);
-        if (body.get(0).getY() < 0)
-            body.get(0).setY(GameConstants.POSTISIONS_AVAILABLE_PER_ROW - 1);
-        lastDirection = SnakeDirectionEnum.UP;
-    }
-
-    public void moveDown() {
-        body.get(0).setY(body.get(0).getY() + 1);
-        if (body.get(0).getY() > GameConstants.POSTISIONS_AVAILABLE_PER_ROW - 1)
-            body.get(0).setY(0);
-        lastDirection = SnakeDirectionEnum.DOWN;
     }
 
     public void setDirection(SnakeDirectionEnum direction) {
